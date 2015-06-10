@@ -6,19 +6,19 @@ from protorpc import messages
 from protorpc import message_types
 from protorpc import remote
 
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write('The app works')
 
 
 class UserObject(messages.Message):
-    # required signifies that the email is needed
     email = messages.StringField(1, required = True)
-    firstName = messages.StringField(2, required = True)
+    firstName = messages.StringField(2, repeated = True)
     lastName = messages.StringField(3)
 
 @endpoints.api(name = 'users', version = 'v1',
-               description = 'API For User Management')
+               description = 'User Management Resources')
 class Users(remote.Service):
 
     @endpoints.method(UserObject, UserObject,
@@ -26,27 +26,17 @@ class Users(remote.Service):
                         path = 'get_user_by_email',
                         http_method = 'GET')
     def getUser(self, request):
-        user = UserObject(email = "email", firstName = "firstName",
+        user = UserObject(email = "email", firstName = ['name1','name2','name3'],
                             lastName = "lastName")
         return user
 
 @endpoints.api(name = 'projects', version = 'v1',
-               description = 'API For Project Management')
+               description = 'Project Management Resources')
 class Projects(remote.Service):
     pass
 
-@endpoints.api(name = 'messaging', version = 'v1',
-               description = 'API For Message Management')
-class Messaging(remote.Service):
-    pass
 
-@endpoints.api(name = 'authentication', version = 'v1',
-               description = 'API For Authenticating Users')
-class Authentication(remote.Service):
-    pass
-
-
-application = endpoints.api_server([Users, Projects, Messaging, Authentication])
+application = endpoints.api_server([Users, Projects])
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
