@@ -1,0 +1,179 @@
+body{
+	padding:0;
+	margin: 0;
+	background: #e4e4e4;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#main-logo{
+	margin-top: -7px;
+	margin-left: 5px;
+}
+
+#main-logo:hover{
+	opacity: 0.7;
+}
+
+.project-summary-container{
+	margin-bottom: 10px;
+	width: 100%;
+	height:300px;
+	border-radius: 0px;
+	background: #fff;
+	padding: 5px;
+	-webkit-box-shadow: 4px 4px 5px 0px rgba(173,173,173,1);
+	-moz-box-shadow: 4px 4px 5px 0px rgba(173,173,173,1);
+	box-shadow: 4px 4px 5px 0px rgba(173,173,173,1);
+}
+
+.logo{
+	height: 140px;
+	width: 140px;
+}
+
+.project-summary-container .summary{
+	height: 135px;
+	margin-left: 145px;
+	margin-top: -140px;
+	margin-right: 5px;
+	padding: 5px;
+}
+
+#side-menu{
+	float: left;
+	width: 250px;
+	height: 600px;
+	margin-top: -20px;
+	background: #efefef;
+	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+}
+
+#side_menu_header{
+	width: 250px;
+	height: 170px;
+	background-image: url("http://www.pd4pic.com/images250_/mountain-landscape-mountains-alpine.jpg");
+}
+
+#side_menu_profile_image{
+	position: absolute;
+	background: #efefef;
+	border-radius: 50%;
+	border: 3px solid #CCCCCC;
+	width: 80px;
+	height: 80px;
+	margin-top: 40px;
+	margin-left: 20px;
+	background-image: url('/assets/default-profile-picture.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#side_menu_user_info{
+	position: absolute;
+	margin-top: 130px;
+	width: 250px;
+	height: 40px;
+	background: #000;
+	color: #fff;
+	padding: 10px;
+	font-weight: bold;
+	opacity: 0.7;
+}
+
+.summary .apply-button{
+	float: right;
+}
+
+.summary .contributors{
+	float: right;
+	margin-top: 40px;
+	margin-right: 40px;
+}
+
+.summary .text{
+	margin-right: 60px;
+	min-height: 120px;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 20px;
+}
+
+/*
+	/////////////////////////////////////////////////////////
+	Modified Bootstrap Classes
+	/////////////////////////////////////////////////////////
+*/
+.navbar{
+	background: #333333;
+	border-radius: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.nav-pills li a{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
+	font-size: 15px;
+	color: black;
+	border-radius: 0px;
+	background: #efefef;
+}
+
+.nav-pills li a:hover{
+	opacity: 0.7;
+	border-radius: 0px;
+	background: #efefef !important;
+}
+
+.nav-pills li:hover{
+	background: #c6c6c6;
+	margin-left: 2px;
+	-webkit-transition: margin-left 0.2s ease-in-out;
+}
+
+.btn-login-register { 
+  color: #ffffff; 
+  background-color: #6B6B6B; 
+  border-color: #17132B; 
+} 
+ 
+.btn-login-register:hover, 
+.btn-login-register:focus, 
+.btn-login-register:active, 
+.btn-login-register.active, 
+.open .dropdown-toggle.btn-login-register { 
+  color: #ffffff; 
+  background-color: #383838; 
+  border-color: #17132B; 
+} 
+ 
+.btn-login-register:active, 
+.btn-login-register.active, 
+.open .dropdown-toggle.btn-login-register { 
+  background-image: none; 
+} 
+ 
+.btn-login-register.disabled, 
+.btn-login-register[disabled], 
+fieldset[disabled] .btn-login-register, 
+.btn-login-register.disabled:hover, 
+.btn-login-register[disabled]:hover, 
+fieldset[disabled] .btn-login-register:hover, 
+.btn-login-register.disabled:focus, 
+.btn-login-register[disabled]:focus, 
+fieldset[disabled] .btn-login-register:focus, 
+.btn-login-register.disabled:active, 
+.btn-login-register[disabled]:active, 
+fieldset[disabled] .btn-login-register:active, 
+.btn-login-register.disabled.active, 
+.btn-login-register[disabled].active, 
+fieldset[disabled] .btn-login-register.active { 
+  background-color: #6B6B6B; 
+  border-color: #17132B; 
+} 
+ 
+.btn-login-register .badge { 
+  color: #6B6B6B; 
+  background-color: #ffffff; 
+}

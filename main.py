@@ -1,4 +1,5 @@
-import webapp2
+from website import *
+from models import *
 
 import endpoints
 
@@ -7,9 +8,9 @@ from protorpc import message_types
 from protorpc import remote
 
 
-class MainHandler(webapp2.RequestHandler):
+class Home(MainHandler):
     def get(self):
-        self.response.write('The app works')
+        self.render('index.html')
 
 
 class UserObject(messages.Message):
@@ -39,5 +40,5 @@ class Projects(remote.Service):
 application = endpoints.api_server([Users, Projects])
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', Home)
 ], debug=True)

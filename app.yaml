@@ -9,6 +9,15 @@ handlers:
 - url: /_ah/spi/.*
   script: main.application
 
+- url: /static
+  static_dir: website/static
+
+- url: /bower
+  static_dir: website/bower_components
+
+- url: /assets
+  static_dir: website/assets
+
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
@@ -17,8 +26,11 @@ handlers:
   script: main.app
 
 libraries:
+- name: jinja2
+  version: "latest"
+
 - name: webapp2
-  version: "2.5.2"
+  version: "latest"
 
 - name: endpoints
   version: "latest"
