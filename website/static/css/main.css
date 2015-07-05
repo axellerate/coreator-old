@@ -1,8 +1,40 @@
 body{
 	padding:0;
 	margin: 0;
-	background: #e4e4e4;
+	background: #858585;
 	font-family: 'Open Sans', sans-serif;
+}
+
+footer{
+	padding: 30px;
+	width: 100%;
+	height: 300px;
+	-webkit-box-shadow: inset 0px 8px 32px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: inset 0px 8px 32px 0px rgba(0,0,0,0.75);
+	box-shadow: inset 0px 8px 32px 0px rgba(0,0,0,0.75);
+	background-image: url('/assets/zigzag.png');
+	font-family: 'Lato', sans-serif;
+}
+
+.footer-table{
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
+}
+
+.footer-table tr{
+	height: 30px;
+}
+
+.footer-table td{
+	font-family: 'Lato', sans-serif;
+}
+
+#footer-label{
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
 }
 
 #main-logo{
@@ -13,6 +45,7 @@ body{
 #main-logo:hover{
 	opacity: 0.7;
 }
+
 
 .project-summary-container{
 	margin-bottom: 10px;
@@ -31,6 +64,47 @@ body{
 	width: 140px;
 }
 
+.main-content{
+	position: relative;
+	margin-top: -500px;
+	margin-left: 250px;
+	width: 100% - 250px;
+	min-width: 700px;
+	height: auto;
+	padding: 20px;
+}
+
+.main-content-container{
+	position: relative;
+	width: 1212px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.main-content-row{
+	height: 402px;
+}
+
+.main-content-card{
+	position: relative;
+	width: 300px;
+	height: 400px;
+	background: #d5d5d5;
+	margin-right: 3px;
+	margin-bottom: 3px;
+	float: left;
+	display: block;
+}
+
+.main-content-news{
+	width: 1209px;
+	height: 400px;
+	margin-bottom: 10px;
+	background: #d5d5d5;
+}
+
+
 .project-summary-container .summary{
 	height: 135px;
 	margin-left: 145px;
@@ -39,11 +113,15 @@ body{
 	padding: 5px;
 }
 
+.rotate {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+}
+
 #side-menu{
-	float: left;
 	width: 250px;
-	height: 600px;
-	margin-top: -20px;
+	height: 500px;
 	background: #efefef;
 	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
@@ -63,7 +141,7 @@ body{
 	border: 3px solid #CCCCCC;
 	width: 80px;
 	height: 80px;
-	margin-top: 40px;
+	margin-top: 20px;
 	margin-left: 20px;
 	background-image: url('/assets/default-profile-picture.png');
 	background-repeat: no-repeat;
@@ -80,6 +158,16 @@ body{
 	padding: 10px;
 	font-weight: bold;
 	opacity: 0.7;
+}
+
+#show-user-options-down{
+	float: right;
+	margin-top: 2px;
+}
+
+#show-user-options-up{
+	float: right;
+	margin-top: 2px;
 }
 
 .summary .apply-button{
@@ -99,6 +187,11 @@ body{
 	font-size: 20px;
 }
 
+.user-options li a{
+	margin-left: 10px;
+	background:  #e4e4e4 !important;
+}
+
 /*
 	/////////////////////////////////////////////////////////
 	Modified Bootstrap Classes
@@ -109,6 +202,7 @@ body{
 	border-radius: 0px;
 	margin: 0px;
 	padding: 0px;
+	border: none;
 }
 
 .nav-pills li a{
@@ -176,4 +270,8 @@ fieldset[disabled] .btn-login-register.active {
 .btn-login-register .badge { 
   color: #6B6B6B; 
   background-color: #ffffff; 
+}
+
+.carousel-control.left, .carousel-control.right {
+    background-image: none
 }
