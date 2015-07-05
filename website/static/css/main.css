@@ -104,6 +104,19 @@ footer{
 	background: #d5d5d5;
 }
 
+.register-form-container{
+	padding: 150px;
+	width: 1149px;
+	height: 800px;
+	margin-bottom: 10px;
+	background: #efefef;
+}
+
+#register-form{
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
 
 .project-summary-container .summary{
 	height: 135px;

@@ -1,0 +1,73 @@
+{% include "header.html" %}
+{% include "top_bar.html" %}
+{% include "side_menu.html" %}
+<div class="main-content">
+  <div class="main-content-container">
+    <div class="register-form-container">
+     <form role="form" id="register-form">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password:</label>
+          <input type="password" class="form-control" id="password" placeholder="Enter password">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Retype Password:</label>
+          <input type="password" class="form-control" id="retype_password" placeholder="Retype password">
+        </div>
+        <div class="form-group">
+          <label for="pwd">First Name:</label>
+          <input type="text" class="form-control" id="first_name" placeholder="First Name">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Last Name:</label>
+          <input type="text" class="form-control" id="last_name" placeholder="Last Name">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Your skillset:</label>
+            <select class="form-control" id="talent">
+                <option value="">Artist</option>
+                <option value="">Designer</option>
+                <option value="">Marketing Specialist</option>
+                <option value="">Software Engineer</option>
+              </select>
+        </div>
+        <button type="submit" class="btn btn-default" id="register">Register Me</button>
+      </form>
+    </div>
+  </div><!--main-content-container-->
+</div><!--End of main-content-->
+
+{% include "footer.html" %}
+
+<script>
+
+$(document).ready(function(){
+  $("#register").click(function(){
+    
+    var user = {
+      email: $("#email").val(),
+      password_hash: $("#password").val(),
+      first_name: $("#first_name").val(),
+      last_name: $("#last_name").val()
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "https://coreator-app.appspot.com/_ah/api/users/v1.00/create_user",
+      dataType: "json",
+      data: JSON.stringify(user),
+      contentType: "application/json; charset=utf-8",
+      success: function(data){
+        alert("Success!");
+      },
+      failure: function(errMsg) {
+        alert(errMsg);
+      }
+    });
+
+  });
+});
+</script>

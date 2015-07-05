@@ -12,6 +12,9 @@ class Home(MainHandler):
     def get(self):
         self.render('index.html')
 
+class Register(MainHandler):
+    def get(self):
+        self.render('register.html')
 
 class UserObject(messages.Message):
     email = messages.StringField(1, required = True)
@@ -53,5 +56,6 @@ class ProjectsApi(remote.Service):
 application = endpoints.api_server([UsersApi, ProjectsApi])
 
 app = webapp2.WSGIApplication([
-    ('/', Home)
+    ('/', Home),
+    ('/register', Register)
 ], debug=True)

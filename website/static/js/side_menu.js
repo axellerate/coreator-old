@@ -1,4 +1,12 @@
+var url = "https://coreator-app.appspot.com/_ah/api/users/v1.00/get_user?email=admin@admin.com";
+$.cookie.json = true;
 
+
+$.getJSON(url, function(result){
+    $.cookie("user", result);
+});
+
+var currentUser = $.cookie("user");
 
 var SideMenuButtons = React.createClass({
 	render: function(){
@@ -25,7 +33,7 @@ var SideMenuUserInfo = React.createClass({
 	render: function(){
 	    return (
 	        <div id="side_menu_user_info">
-	        	Kris Vukasinovic
+	        	{currentUser.first_name} {currentUser.last_name}
 	        	<i id="show-user-options-down" className="fa fa-arrow-circle-down"></i>
 	        	<i id="show-user-options-up" className="fa fa-arrow-circle-up"></i>
 	        </div>
