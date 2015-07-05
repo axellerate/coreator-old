@@ -76,7 +76,7 @@ footer{
 
 .main-content-container{
 	position: relative;
-	width: 1212px;
+	width: 1160px;
 	height: auto;
 	margin-left: auto;
 	margin-right: auto;
@@ -88,7 +88,7 @@ footer{
 
 .main-content-card{
 	position: relative;
-	width: 300px;
+	width: 285px;
 	height: 400px;
 	background: #d5d5d5;
 	margin-right: 3px;
@@ -98,7 +98,7 @@ footer{
 }
 
 .main-content-news{
-	width: 1209px;
+	width: 1149px;
 	height: 400px;
 	margin-bottom: 10px;
 	background: #d5d5d5;

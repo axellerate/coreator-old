@@ -15,29 +15,42 @@ class Home(MainHandler):
 
 class UserObject(messages.Message):
     email = messages.StringField(1, required = True)
-    firstName = messages.StringField(2, repeated = True)
-    lastName = messages.StringField(3)
+    first_name = messages.StringField(2)
+    last_name = messages.StringField(3)
+    password_hash = messages.StringField(4)
 
-@endpoints.api(name = 'users', version = 'v1',
+class Response(messages.Message):
+    message = messages.StringField(1)
+    success = messages.BooleanField(2)
+
+@endpoints.api(name = 'users', version = 'v1.00',
                description = 'User Management Resources')
-class Users(remote.Service):
+class UsersApi(remote.Service):
+
+
+    @endpoints.method(UserObject, Response,
+                        name = 'create_user',
+                        path = 'create_user',
+                        http_method = 'POST')
+    def create_user(self, request):
+        Users.create_user(request)
+        return Response(message = "User created successfully", success = True)
 
     @endpoints.method(UserObject, UserObject,
-                        name = 'getUserByEmail',
-                        path = 'get_user_by_email',
+                        name = 'get_user',
+                        path = 'get_user',
                         http_method = 'GET')
-    def getUser(self, request):
-        user = UserObject(email = "email", firstName = ['name1','name2','name3'],
-                            lastName = "lastName")
-        return user
+    def get_user(self, request):
+        user = Users.query(Users.email == request.email).fetch(1)
+        return UserObject(email = user[0].email, first_name = user[0].first_name, last_name = user[0].last_name)
 
 @endpoints.api(name = 'projects', version = 'v1',
                description = 'Project Management Resources')
-class Projects(remote.Service):
+class ProjectsApi(remote.Service):
     pass
 
 
-application = endpoints.api_server([Users, Projects])
+application = endpoints.api_server([UsersApi, ProjectsApi])
 
 app = webapp2.WSGIApplication([
     ('/', Home)
