@@ -1,5 +1,4 @@
 from website import *
-from models import *
 
 import endpoints
 
@@ -10,7 +9,23 @@ from protorpc import remote
 
 class Home(MainHandler):
     def get(self):
-        self.render('index.html')
+        if self.user:
+            print self.user
+            self.redirect('http://www.google.com')
+        else:
+            self.render('index.html')
+
+    def post(self):
+        email = self.request.get('email').lower()
+        password = self.request.get('password')
+
+        u = Users.login(email, password)
+        if u:
+            self.login(u)
+            self.redirect('/')
+        else:
+            msg = 'Invalid username or password.'
+            self.render('index.html', error = msg)
 
 class Register(MainHandler):
     def get(self):
@@ -36,7 +51,9 @@ class UsersApi(remote.Service):
                         path = 'create_user',
                         http_method = 'POST')
     def create_user(self, request):
-        Users.create_user(request)
+        u = Users.register(request.email, request.password_hash,
+            request.first_name, request.last_name)
+        u.put()
         return Response(message = "User created successfully", success = True)
 
     @endpoints.method(UserObject, UserObject,
@@ -46,6 +63,7 @@ class UsersApi(remote.Service):
     def get_user(self, request):
         user = Users.query(Users.email == request.email).fetch(1)
         return UserObject(email = user[0].email, first_name = user[0].first_name, last_name = user[0].last_name)
+
 
 @endpoints.api(name = 'projects', version = 'v1',
                description = 'Project Management Resources')

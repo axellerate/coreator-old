@@ -7,6 +7,9 @@ import hmac
 import jinja2
 from google.appengine.ext import ndb
 
+
+from models import *
+
 template_dir = os.path.join(os.path.dirname(__file__), 'website/templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
@@ -28,18 +31,18 @@ def render_str(template, **params):
 def make_salt(length = 5):
     return ''.join(random.choice(letters) for x in xrange(length))
 
-def make_pw_hash(name, pw, salt = None):
+def make_pw_hash(email, pw, salt = None):
     if not salt:
         salt = make_salt()
-    h = hashlib.sha256(name + pw + salt).hexdigest()
+    h = hashlib.sha256(email + pw + salt).hexdigest()
     return '%s,%s' % (salt, h)
 
-def valid_pw(name, password, h):
+def valid_pw(email, password, h):
     salt = h.split(',')[0]
-    return h == make_pw_hash(name, password, salt)
+    return h == make_pw_hash(email, password, salt)
 
-def users_key(group = 'default'):
-    return db.Key.from_path('users', group)
+# def users_key(group = 'default'):
+#     return ndb.key.from_path('users', group)
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -63,7 +66,8 @@ class MainHandler(webapp2.RequestHandler):
         return cookie_val and check_secure_val(cookie_val)
 
     def login(self, user):
-        self.set_secure_cookie('user_id', str(user.key().id()))
+        print str(user.key.id())
+        self.set_secure_cookie('user_id', str(user.key.id()))
 
     def logout(self):
         self.response.headers.add_header('Set-Cookie', 'user_id=; Path=/')
@@ -71,4 +75,4 @@ class MainHandler(webapp2.RequestHandler):
     def initialize(self, *a, **kw):
         webapp2.RequestHandler.initialize(self, *a, **kw)
         uid = self.read_secure_cookie('user_id')
-        self.user = uid and User.by_id(int(uid))
+        self.user = uid and Users.by_id(int(uid))
