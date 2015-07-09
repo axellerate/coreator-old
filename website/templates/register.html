@@ -6,23 +6,38 @@
     <div class="register-form-container">
      <form role="form" id="register-form">
         <div class="form-group">
-          <label for="email">Email:</label>
+          <label for="email">Email:          
+            <span id="email_valid" style="display: none;"><i class="fa fa-check"></i></span>
+            <span id="email_error" style="display: none;"><i class="fa fa-times"> Invalid email address.</i></span>
+          </label>
           <input type="email" class="form-control" id="email" placeholder="Enter email">
         </div>
         <div class="form-group">
-          <label for="pwd">Password:</label>
+          <label for="pwd">Password:
+            <span id="password_valid" style="display: none;"><i class="fa fa-check"></i></span>
+            <span id="password_error" style="display: none;"><i class="fa fa-times"> Your password is too short (6 or more characters).</i></span>
+          </label>
           <input type="password" class="form-control" id="password" placeholder="Enter password">
         </div>
         <div class="form-group">
-          <label for="pwd">Retype Password:</label>
+          <label for="pwd">Retype Password:
+            <span id="retype_password_valid" style="display: none;"><i class="fa fa-check"></i></span>
+            <span id="retype_password_error" style="display: none;"><i class="fa fa-times"> Your passwords do not match.</i></span>
+          </label>
           <input type="password" class="form-control" id="retype_password" placeholder="Retype password">
         </div>
         <div class="form-group">
-          <label for="pwd">First Name:</label>
+          <label for="pwd">First Name:
+            <span id="first_name_valid" style="display: none;"><i class="fa fa-check"></i></span>
+            <span id="first_name_error" style="display: none;"><i class="fa fa-times"> You need to enter a first name..</i></span>
+          </label>
           <input type="text" class="form-control" id="first_name" placeholder="First Name">
         </div>
         <div class="form-group">
-          <label for="pwd">Last Name:</label>
+          <label for="pwd">Last Name:
+            <span id="last_name_valid" style="display: none;"><i class="fa fa-check"></i></span>
+            <span id="last_name_error" style="display: none;"><i class="fa fa-times"> You need to enter a last name.</i></span>
+          </label>
           <input type="text" class="form-control" id="last_name" placeholder="Last Name">
         </div>
         <div class="form-group">
@@ -45,6 +60,105 @@
 <script>
 
 $(document).ready(function(){
+
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
+  var valid = true;
+
+  $("#email").focusout(function(){
+    var check = validateEmail($("#email").val());
+    if (check){
+      valid = true;
+      $("#email_error").hide();
+      $("#email_valid").show();
+      $("#email").css("border", "2px solid green");
+    }else{
+      valid = false;
+      $("#email_error").show();
+      $("#email_valid").hide();
+      $("#email").css("border", "2px solid red");
+    }
+  });
+
+  $("#password").focusout(function(){
+    var length = $("#password").val().length;
+    if (length > 5){
+      valid = true;
+      $("#password_error").hide();
+      $("#password_valid").show();
+      $("#password").css("border", "2px solid green");
+    }else{
+      valid = false;
+      $("#password_error").show();
+      $("#password_valid").hide();
+      $("#password").css("border", "2px solid red");
+    }
+    var password = $("#password").val();
+    var retype_password = $("#retype_password").val();
+    if(retype_password.length != 0){
+      if (password === retype_password){
+        valid = true;
+        $("#retype_password_error").hide();
+        $("#retype_password_valid").show();
+        $("#retype_password").css("border", "2px solid green");
+      }else{
+        valid = false;
+        $("#retype_password_error").show();
+        $("#retype_password_valid").hide();
+        $("#retype_password").css("border", "2px solid red");
+      }
+    }
+  });
+
+
+  $("#retype_password").focusout(function(){
+    var password = $("#password").val();
+    var retype_password = $("#retype_password").val();
+    if (password === retype_password){
+      valid = true;
+      $("#retype_password_error").hide();
+      $("#retype_password_valid").show();
+      $("#retype_password").css("border", "2px solid green");
+    }else{
+      valid = false;
+      $("#retype_password_error").show();
+      $("#retype_password_valid").hide();
+      $("#retype_password").css("border", "2px solid red");
+    }
+  });
+
+  $("#first_name").focusout(function(){
+    var first_name = $("#first_name").val().length;
+    if (first_name > 0){
+      valid = true;
+      $("#first_name_error").hide();
+      $("#first_name_valid").show();
+      $("#first_name").css("border", "2px solid green");
+    }else{
+      valid = false;
+      $("#first_name_error").show();
+      $("#first_name_valid").hide();
+      $("#first_name").css("border", "2px solid red");
+    }
+  });
+
+  $("#last_name").focusout(function(){
+    var last_name = $("#last_name").val().length;
+    if (last_name > 0){
+      valid = true;
+      $("#last_name_error").hide();
+      $("#last_name_valid").show();
+      $("#last_name").css("border", "2px solid green");
+    }else{
+      valid = false;
+      $("#last_name_error").show();
+      $("#last_name_valid").hide();
+      $("#last_name").css("border", "2px solid red");
+    }
+  });
+
   $("#register").click(function(){
     
     var user = {
