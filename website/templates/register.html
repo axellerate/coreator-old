@@ -4,7 +4,8 @@
 <div class="main-content">
   <div class="main-content-container">
     <div class="register-form-container">
-     <form role="form" id="register-form">
+    <div id="checkmark" style="display: none; margin-left: auto; margin-right: auto; margin-top 100px;"><img src="/assets/checkmark.png"></div>
+      <form role="form" id="register-form">
         <div class="form-group">
           <label for="email">Email:          
             <span id="email_valid" style="display: none;"><i class="fa fa-check"></i></span>
@@ -159,8 +160,10 @@ function validateEmail(email) {
     }
   });
 
-  $("#register").click(function(){
-    
+
+  $("#register").click(function(e){
+    e.preventDefault();
+
     var user = {
       email: $("#email").val(),
       password_hash: $("#password").val(),
@@ -175,7 +178,8 @@ function validateEmail(email) {
       data: JSON.stringify(user),
       contentType: "application/json; charset=utf-8",
       success: function(data){
-        alert("Success!");
+        $("#register-form").hide();
+        $("#checkmark").fadeIn();
       },
       failure: function(errMsg) {
         alert(errMsg);
