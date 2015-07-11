@@ -41,8 +41,8 @@ def valid_pw(email, password, h):
     salt = h.split(',')[0]
     return h == make_pw_hash(email, password, salt)
 
-# def users_key(group = 'default'):
-#     return ndb.key.from_path('users', group)
+def users_key(group = 'default'):
+    return ndb.key.from_path('users', group)
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -89,7 +89,6 @@ class Users(BaseModel):
 
 	@classmethod
 	def by_id(cls, uid):
-		print Users.get_by_id(uid)
 		return Users.get_by_id(uid)
 	
 	@classmethod
@@ -110,3 +109,28 @@ class Users(BaseModel):
 		u = cls.by_email(email)
 		if u and valid_pw(email, pw, u.password_hash):
 			return u
+
+class Images(BaseModel):
+    image = ndb.BlobProperty(required = True)
+
+class Fields(BaseModel):
+    name = ndb.StringProperty(required = True)
+    slug = ndb.StringProperty(required = True)
+    icon = ndb.StringProperty(required = True)  
+
+class Professions(BaseModel):
+    name = ndb.StringProperty(required = True)
+    slug = ndb.StringProperty(required = True)
+    field = ndb.KeyProperty(kind = 'Fields')
+
+class Projects(BaseModel):
+    title = ndb.StringProperty(required = True)
+    description = ndb.TextProperty(required = True)
+    founder = ndb.KeyProperty(kind = 'Users', required = True)
+    contributors = ndb.KeyProperty(kind = 'Users', repeated = True)
+    moderators = ndb.KeyProperty(kind = 'Users', repeated = True)
+    field = ndb.KeyProperty(kind = 'Fields')
+    professions = ndb.KeyProperty(kind = 'Professions', repeated = True)
+    card = ndb.KeyProperty(kind = 'Images')
+
+

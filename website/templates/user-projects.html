@@ -4,9 +4,15 @@
 
 <div class="main-content">
   <div class="main-content-container">
-    <div class="main-content-user-projects"></div>
-    <div class="main-content-user-projects"></div>
-    <div class="main-content-user-projects"></div>
+  	{% for project in projects %}
+    <div class="main-content-user-projects">
+    	{{project.title}}
+    	<br>
+    	{{project.description | safe}}
+    	<br>
+    	<img src="/image?key={{project.card.id()}}">
+    </div>
+    {% endfor %}
   </div><!--main-content-container-->
 </div><!--End of main-content-->
 

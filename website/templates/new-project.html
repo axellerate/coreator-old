@@ -8,47 +8,55 @@
 <div class="main-content">
   <div class="main-content-container">
   	<section id="new-project-container">
-      	<form role="form" id="new-project-form">
+      	<form role="form" id="new-project-form" enctype="multipart/form-data" method="POST">
       	*Please note: This will be your proposal as well as your projects main information page.*
       	<br><br>
         	<div class="form-group">
-          		<label for="email">Project Title:</label>
-          		<input type="email" class="form-control" id="title" placeholder="">
+          		<label for="title">Project Title:</label>
+          		<input type="email" class="form-control" id="title" name="title" placeholder="" value="{{title}}">
         </div>
         <div class="form-group">
-		  	<label for="comment">Project Description:</label>
-		  	<textarea class="form-control" rows="5" id="description"></textarea>
+		  	<label for="description">Project Description:</label>
+		  	<textarea class="form-control" rows="5" id="description" name="description">{{description}}</textarea>
 		  	<script>CKEDITOR.replace( 'description' );</script>
 		</div>
+		<label for="field">Project Field:</label>
+		{% for field in fields %}
+		<div class="radio">
+		  	<label><input type="radio" name="field" value="{{field.slug}}">{{field.name}}</label>
+		</div>
+		{% endfor %}
         <div class="form-group">
-		  	<label for="comment">What sort of talent will you need?</label>
+		  	<label for="profession">What sort of talent will you need?</label>
 		  	<br>
-			<label class="checkbox-inline"><input type="checkbox" value="">3D Artists</label>
-			<label class="checkbox-inline"><input type="checkbox" value="">Electrical Engineers</label>
-			<label class="checkbox-inline"><input type="checkbox" value="">Graphic Designers</label>
-			<label class="checkbox-inline"><input type="checkbox" value="">Software Engineers</label>
-			<label class="checkbox-inline"><input type="checkbox" value="">Scientists</label>
-			<label class="checkbox-inline"><input type="checkbox" value="">Web Developers</label>
+		  	{% for profession in professions %}
+			<label class="checkbox-inline"><input type="checkbox" value="{{profession.slug}}" name="professions">{{profession.name}}</label>
+			{% endfor %}
 		</div>
-		<label for="comment">Type of Project:</label>
+		<label for="type">Project Type:</label>
 		<div class="radio">
-		  	<label><input type="radio" name="optradio">Open Source</label>
+		  	<label><input type="radio" name="type" value="open-source">Open Source</label>
 		</div>
 		<div class="radio">
-		  	<label><input type="radio" name="optradio">Startup</label>
+		  	<label><input type="radio" name="type" value="startup">Startup</label>
 		</div>
 		<div class="radio">
-		  	<label><input type="radio" name="optradio">For Fun</label>
+		  	<label><input type="radio" name="type" value="for-fun">For Fun</label>
 		</div>
 		<div class="radio">
-		  	<label><input type="radio" name="optradio">Other</label>
+		  	<label><input type="radio" name="type" value="other">Other</label>
 		</div>
 		<div class="form-group">
-			<label for="comment">Your Project Card (500px in height by 285px in width):</label>
+			<label for="card">Your Project Card (500px in height by 285px in width):</label>
 			<br>
-			<input id="input-id" type="file" class="file" accept="image/*" data-show-upload="false" data-preview-file-type="text">
+			<input id="input-id" type="file" class="file" accept="image/*" data-show-upload="false" data-preview-file-type="text" name="card">
 			<script>
 				$("#input-id").fileinput({
+				    initialPreview: [
+				        "<img src='assets/example-card.png' class='file-preview-image' alt='Example' title='Example Card'>",
+				    ],
+				    overwriteInitial: true,
+				    maxFileSize: 500,
 					previewFileType: "image",
 					browseClass: "btn btn-success",
 					browseLabel: "Pick Image",
