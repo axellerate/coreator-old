@@ -1,19 +1,14 @@
-var url = "https://coreator-app.appspot.com/_ah/api/users/v1.00/get_user?email=admin@admin.com";
-$.cookie.json = true;
+var user_id = $('#user-id').data("user-id");
+var first_name = $('#user-first-name').data("first-name");
+var last_name = $('#user-last-name').data("last-name");
 
-
-$.getJSON(url, function(result){
-    $.cookie("user", result);
-});
-
-var currentUser = $.cookie("user");
 
 var SideMenuButtons = React.createClass({
 	render: function(){
 		return(
 			<ul className="nav nav-pills nav-stacked">
-			  <li><a href="#projects"><i className="fa fa-th"></i> Projects</a></li>
-			  <li><a href="#people"><i className="fa fa-users"></i> People</a></li>
+			  <li><a href="/projects?page=1"><i className="fa fa-th"></i> Projects</a></li>
+			  <li><a href="/people?page=1"><i className="fa fa-users"></i> People</a></li>
 			</ul>
 		);
 	}
@@ -33,7 +28,7 @@ var SideMenuUserInfo = React.createClass({
 	render: function(){
 	    return (
 	        <div id="side_menu_user_info">
-	        	{currentUser.first_name} {currentUser.last_name}
+	        	{first_name} {last_name}
 	        	<i id="show-user-options-down" className="fa fa-arrow-circle-down"></i>
 	        	<i id="show-user-options-up" className="fa fa-arrow-circle-up"></i>
 	        </div>
@@ -45,10 +40,10 @@ var SideMenuUserOptions = React.createClass({
 	render: function(){
 	    return (
 			<ul className="nav nav-pills nav-stacked user-options">
-			  <li><a href="#profile"><i className="fa fa-user"></i> My Profile</a></li>
-			  <li><a href="#my-projects"><i className="fa fa-th"></i> My Projects</a></li>
-			  <li><a href="#settings"><i className="fa fa-cog"></i> My Settings</a></li>
-			  <li><a href="#logout"><i className="fa fa-power-off"></i> Logout</a></li>
+			  <li><a href={"/profile?id=" + user_id}><i className="fa fa-user"></i> My Profile</a></li>
+			  <li><a href={"/user-projects?id=" + user_id}><i className="fa fa-th"></i> My Projects</a></li>
+			  <li><a href="/settings"><i className="fa fa-cog"></i> My Settings</a></li>
+			  <li><a href="/logout"><i className="fa fa-power-off"></i> Sign Off</a></li>
 			</ul>
 	    );
 	}
@@ -73,16 +68,27 @@ var SideMenuHeader = React.createClass({
 
 
 var SideMenu = React.createClass({
+
 	render: function(){
-		return(
-			<div>
-				<SideMenuHeader />
-				<SideMenuUserOptions />
-				<SideMenuButtons />
-			</div>
-		);
+		if(user_id){
+			return(
+				<div>
+					<SideMenuHeader />
+					<SideMenuUserOptions />
+					<SideMenuButtons />
+				</div>
+			);
+		}else{
+			return(
+				<div>
+					<SideMenuButtons />
+				</div>
+			);	
+		}
 	}
+
 });
+
 
 React.render(
   <SideMenu />,

@@ -37,6 +37,13 @@ footer{
 	color: white;
 }
 
+#create-project-btn{
+	float: right;
+	margin-bottom: 20px;
+	margin-right: 25px;
+	font-weight: bold;
+}
+
 #main-logo{
 	margin-top: -7px;
 	margin-left: 5px;
@@ -80,6 +87,7 @@ footer{
 	height: auto;
 	margin-left: auto;
 	margin-right: auto;
+	z-index: 0;
 }
 
 .main-content-row{
@@ -90,7 +98,7 @@ footer{
 	position: relative;
 	width: 285px;
 	height: 400px;
-	background: #d5d5d5;
+	background: #efefef;
 	margin-right: 3px;
 	margin-bottom: 3px;
 	float: left;
@@ -101,7 +109,118 @@ footer{
 	width: 1149px;
 	height: 400px;
 	margin-bottom: 10px;
-	background: #d5d5d5;
+	background: #efefef;
+}
+
+.main-content-user-projects{
+	width: 1149px;
+	height: 400px;
+	margin-bottom: 10px;
+	background: #efefef;
+}
+
+.messages-box{
+	float: right;
+	position: relative;
+	margin-right: 130px;
+	width: 250px;
+	height: 320px;
+	background: #fff;
+	z-index: 999999;
+	background: #efefef;
+	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	display: none;
+	overflow: scroll;
+}
+
+.messages-box ul li{
+	height: 40px;
+	cursor: pointer;
+}
+
+
+#new-project-container{
+	width: 1149px;
+	min-height: 800px;
+	height: auto;
+	background: #efefef;
+	padding: 50px;
+}
+
+.friends-box{
+	float: right;
+	position: relative;
+	margin-right: 90px;
+	width: 250px;
+	height: 320px;
+	background: #fff;
+	z-index: 999999;
+	background: #efefef;
+	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	display: none;
+	overflow: scroll;
+}
+
+.friends-box ul li{
+	height: 40px;
+	cursor: pointer;
+}
+
+.tasks-box{
+	float: right;
+	position: relative;
+	margin-right: 170px;
+	width: 250px;
+	height: 320px;
+	background: #fff;
+	z-index: 999999;
+	background: #efefef;
+	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	display: none;
+	overflow: scroll;
+}
+
+.tasks-box ul li{
+	height: 40px;
+	cursor: pointer;
+}
+
+.profile-container{	
+	width: 1149px;
+	height: 800px;
+	background: #efefef;
+	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+}
+
+.profile-cover-image{
+	width: 1149px;
+	height: 300px;
+	background-image: url("http://thewowstyle.com/wp-content/uploads/2015/02/Landscape-Photography-Brisbane.jpg");
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.profile-picture-circle{
+	position: absolute;
+	background: #efefef;
+	border-radius: 50%;
+	border: 3px solid #CCCCCC;
+	width: 200px;
+	height: 200px;
+	margin-top: 50px;
+	margin-left: 50px;
+	background-image: url('/assets/default-profile-picture.png');
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .register-form-container{
@@ -114,6 +233,12 @@ footer{
 
 #register-form{
 	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#new-project-form{
+	width: 800px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -132,7 +257,29 @@ footer{
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
 }
 
+#side-menu a{
+	font-weight: bold;
+	color: black;
+}
+
+#side-menu li{
+	border-radius: 0px;
+}
+
+#side-menu a:hover{
+	opacity: 0.7;
+}
+
 #side-menu{
+	width: 250px;
+	height: 500px;
+	background: #efefef;
+	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+}
+
+#side-menu-user{
 	width: 250px;
 	height: 500px;
 	background: #efefef;
@@ -144,7 +291,7 @@ footer{
 #side_menu_header{
 	width: 250px;
 	height: 170px;
-	background-image: url("http://www.pd4pic.com/images250_/mountain-landscape-mountains-alpine.jpg");
+	background-image: url("http://thewowstyle.com/wp-content/uploads/2015/02/Landscape-Photography-Brisbane.jpg");
 }
 
 #side_menu_profile_image{
@@ -205,6 +352,22 @@ footer{
 	background:  #e4e4e4 !important;
 }
 
+.user-top-bar{
+	color: white;
+	margin-right: 20px;
+	margin-top: 12px;
+}
+
+.user-top-bar i{
+	margin-right: 15px;
+	opacity: 0.8;
+} 
+
+.user-top-bar i:hover{
+	cursor: pointer;
+	opacity: 0.7;
+} 
+
 /*
 	/////////////////////////////////////////////////////////
 	Modified Bootstrap Classes
@@ -218,7 +381,7 @@ footer{
 	border: none;
 }
 
-.nav-pills li a{
+.nav-pills li .main-logo{
 	font-family: 'Open Sans', sans-serif;
 	font-weight: bold;
 	font-size: 15px;
@@ -227,7 +390,7 @@ footer{
 	background: #efefef;
 }
 
-.nav-pills li a:hover{
+.nav-pills li .:hover{
 	opacity: 0.7;
 	border-radius: 0px;
 	background: #efefef !important;

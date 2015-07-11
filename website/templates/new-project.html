@@ -1,0 +1,74 @@
+{% include "header.html" %}
+{% include "top_bar.html" %}
+{% include "side_menu.html" %}
+<link rel="stylesheet" type="text/css" href="bower/bootstrap-fileinput/css/fileinput.min.css">
+<script src="bower/bootstrap-fileinput/js/fileinput.min.js" type="text/javascript"></script>
+
+
+<div class="main-content">
+  <div class="main-content-container">
+  	<section id="new-project-container">
+      	<form role="form" id="new-project-form">
+      	*Please note: This will be your proposal as well as your projects main information page.*
+      	<br><br>
+        	<div class="form-group">
+          		<label for="email">Project Title:</label>
+          		<input type="email" class="form-control" id="title" placeholder="">
+        </div>
+        <div class="form-group">
+		  	<label for="comment">Project Description:</label>
+		  	<textarea class="form-control" rows="5" id="description"></textarea>
+		  	<script>CKEDITOR.replace( 'description' );</script>
+		</div>
+        <div class="form-group">
+		  	<label for="comment">What sort of talent will you need?</label>
+		  	<br>
+			<label class="checkbox-inline"><input type="checkbox" value="">3D Artists</label>
+			<label class="checkbox-inline"><input type="checkbox" value="">Electrical Engineers</label>
+			<label class="checkbox-inline"><input type="checkbox" value="">Graphic Designers</label>
+			<label class="checkbox-inline"><input type="checkbox" value="">Software Engineers</label>
+			<label class="checkbox-inline"><input type="checkbox" value="">Scientists</label>
+			<label class="checkbox-inline"><input type="checkbox" value="">Web Developers</label>
+		</div>
+		<label for="comment">Type of Project:</label>
+		<div class="radio">
+		  	<label><input type="radio" name="optradio">Open Source</label>
+		</div>
+		<div class="radio">
+		  	<label><input type="radio" name="optradio">Startup</label>
+		</div>
+		<div class="radio">
+		  	<label><input type="radio" name="optradio">For Fun</label>
+		</div>
+		<div class="radio">
+		  	<label><input type="radio" name="optradio">Other</label>
+		</div>
+		<div class="form-group">
+			<label for="comment">Your Project Card (500px in height by 285px in width):</label>
+			<br>
+			<input id="input-id" type="file" class="file" accept="image/*" data-show-upload="false" data-preview-file-type="text">
+			<script>
+				$("#input-id").fileinput({
+					previewFileType: "image",
+					browseClass: "btn btn-success",
+					browseLabel: "Pick Image",
+					browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+					removeClass: "btn btn-danger",
+					removeLabel: "Delete",
+					removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+					uploadClass: "btn btn-info",
+					uploadLabel: "Upload",
+					uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+				});
+	</script>	
+		</div>
+ 		<div class="form-group">
+ 			<br>
+			<button class="btn btn-success">Create Project!</button>
+		</div>
+  		</form>
+  	</section>
+  </div><!--main-content-container-->
+</div><!--End of main-content-->
+
+{% include "footer.html" %}

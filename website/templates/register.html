@@ -173,7 +173,7 @@ function validateEmail(email) {
 
     $.ajax({
       type: "POST",
-      url: "https://coreator-app.appspot.com/_ah/api/users/v1.00/create_user",
+      url: "http://localhost:26081/_ah/api/users/v1.00/create_user",
       dataType: "json",
       data: JSON.stringify(user),
       contentType: "application/json; charset=utf-8",

@@ -1,4 +1,4 @@
-from website import *
+from models import *
 
 import endpoints
 
@@ -10,8 +10,7 @@ from protorpc import remote
 class Home(MainHandler):
     def get(self):
         if self.user:
-            print self.user
-            self.redirect('http://www.google.com')
+            self.render('index.html', user = self.user)
         else:
             self.render('index.html')
 
@@ -30,6 +29,62 @@ class Home(MainHandler):
 class Register(MainHandler):
     def get(self):
         self.render('register.html')
+
+class Logout(MainHandler):
+    def get(self):
+        self.logout()
+        self.redirect('/')
+
+class Profile(MainHandler):
+    def get(self):
+        profile_id = int(self.request.get('id'))
+        profile_user = Users.get_by_id(profile_id)
+        if self.user:
+            self.render('profile.html', user = self.user, profile_user = profile_user)
+        else:
+            self.render('profile.html', profile_user = profile_user)
+
+class Projects(MainHandler):
+    def get(self):
+        if self.user:
+            self.render('projects.html', user = self.user)
+        else:
+            self.render('projects.html')
+
+class People(MainHandler):
+    def get(self):
+        if self.user:
+            self.render('people.html', user = self.user)
+        else:
+            self.render('people.html')
+
+class UserProjects(MainHandler):
+    def get(self):
+        user_id = int(self.request.get('id'))
+        projects_user = Users.get_by_id(user_id)
+        if self.user:
+            self.render('user-projects.html', user = self.user, projects_user = projects_user)
+        else:
+            self.render('user-projects.html', projects_user = projects_user)
+
+class NewProject(MainHandler):
+    def get(self):
+        if self.user:
+            self.render('new-project.html', user = self.user)
+        else:
+            self.render('new-project.html')
+
+
+
+
+
+
+
+
+
+
+
+
 
 class UserObject(messages.Message):
     email = messages.StringField(1, required = True)
@@ -62,7 +117,8 @@ class UsersApi(remote.Service):
                         http_method = 'GET')
     def get_user(self, request):
         user = Users.query(Users.email == request.email).fetch(1)
-        return UserObject(email = user[0].email, first_name = user[0].first_name, last_name = user[0].last_name)
+        return UserObject(email = user[0].email, first_name = user[0].first_name, 
+                          last_name = user[0].last_name)
 
 
 @endpoints.api(name = 'projects', version = 'v1',
@@ -75,5 +131,12 @@ application = endpoints.api_server([UsersApi, ProjectsApi])
 
 app = webapp2.WSGIApplication([
     ('/', Home),
-    ('/register', Register)
+    ('/register', Register),
+    ('/logout', Logout),
+    ('/profile', Profile),
+    ('/user-projects', UserProjects),
+    ('/projects', Projects),
+    ('/people', People),
+    ('/new-project', NewProject)
+
 ], debug=True)

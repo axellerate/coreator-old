@@ -1,2 +1,8 @@
+{% if user %}
+<meta id="user-id" data-user-id="{{user.key.id()}}">
+<meta id="user-first-name" data-first-name="{{user.first_name}}">
+<meta id="user-last-name" data-last-name="{{user.last_name}}">
+{% endif %}
 <div id="side-menu"></div>
+
 <script type="text/jsx" src="static/js/side_menu.js"></script>
