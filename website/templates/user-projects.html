@@ -4,15 +4,25 @@
 
 <div class="main-content">
   <div class="main-content-container">
-  	{% for project in projects %}
-    <div class="main-content-user-projects">
-    	{{project.title}}
-    	<br>
-    	{{project.description | safe}}
-    	<br>
-    	<img src="/image?key={{project.card.id()}}">
-    </div>
-    {% endfor %}
+  	{% if projects %}
+	  	{% for project in projects %}
+	    <div class="main-content-user-projects">
+	    	{{project.title}}
+	    	<br>
+	    	{{project.description | safe}}
+	    	<br>
+	    	<img src="/image?id={{project.card.id()}}">
+	    	<span class="view-project-button"><button class="btn btn-success">View Project</button></span>
+	    </div>
+	    {% endfor %}
+    {% else %}
+    	<div class="main-content-user-projects">
+    		<center>
+    		<br><br><br><br><br><br><br><br>
+    		<h3>You haven't founded any yet! Got an idea? Click <a href="/new-project">here</a> to get started.</h3>
+    		</center>
+    	</div>
+    {% endif %}
   </div><!--main-content-container-->
 </div><!--End of main-content-->
 

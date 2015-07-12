@@ -8,11 +8,12 @@ from protorpc import remote
 
 class DisplayImage(webapp2.RequestHandler):
     def get(self):
-        key = self.request.get('key')
-        image = Images.get(key)
+        image_id = self.request.get('id')
+        image = Images.get_by_id(int(image_id))
+        print image
         if image:
             self.response.headers['Content-Type'] = "image/png"
-            return self.response.out.write(images.image)
+            return self.response.out.write(image.image)
         else:
             self.response.headers['Content-Type'] = "image/png"
             return self.response.out.write("/static/unknown.gif")
@@ -38,8 +39,42 @@ class Home(MainHandler):
             return self.render('index.html', error = msg)
 
 class Register(MainHandler):
+    
+    professions = Professions.query()
+    errors = {}
+
     def get(self):
-        return self.render('register.html')
+        return self.render('register.html', errors = self.errors, professions = self.professions)
+
+    def post(self):
+        email = self.request.get('email')
+        password = self.request.get('password')
+        retype_password = self.request.get('retype_password')
+        first_name = self.request.get('first_name')
+        last_name = self.request.get('last_name')
+        profession = self.request.get('profession')
+        form_errors = False
+        if(password != retype_password):
+            form_errors = True
+            errors.update({"passwords_mismatch": "Passwords do not match."})
+
+        if(Users.query(Users.email == email).count() > 0):
+            form_errors = True
+            self.errors.update({"email_error":"That email is already in use."})
+
+        if(first_name == "" or last_name == "" or email == "" or password == "" or profession == ""):
+            form_errors = True
+            self.errors.update({"missing_fields": "You're missing some information."})
+
+        if form_errors == True:
+            return self.render('register.html', professions = self.professions, 
+                errors = self.errors, email = email, first_name = first_name, 
+                last_name = last_name)
+        profession = Professions.query(Professions.slug == profession).get()
+        user = Users.register(email, password, first_name, last_name, profession.key)
+        user.put()
+        self.login(user)
+        return self.redirect(('/profile?id=%s') %user.key.id())
 
 class Logout(MainHandler):
     def get(self):
@@ -74,6 +109,8 @@ class UserProjects(MainHandler):
         user_id = int(self.request.get('id'))
         projects_user = Users.get_by_id(user_id)
         projects = Projects.query(Projects.founder == projects_user.key)
+        if projects.count() == 0:
+            projects = ''
         if self.user:
             return self.render('user-projects.html', user = self.user, 
                 projects_user = projects_user, projects = projects)
@@ -135,6 +172,7 @@ class UserObject(messages.Message):
     first_name = messages.StringField(2)
     last_name = messages.StringField(3)
     password_hash = messages.StringField(4)
+    profession = messages.StringField(5)
 
 class Response(messages.Message):
     message = messages.StringField(1)
@@ -150,8 +188,9 @@ class UsersApi(remote.Service):
                         path = 'create_user',
                         http_method = 'POST')
     def create_user(self, request):
+        profession = Professions.query(Professions.slug == request.profession).get()
         u = Users.register(request.email, request.password_hash,
-            request.first_name, request.last_name)
+            request.first_name, request.last_name, profession.key)
         u.put()
         return Response(message = "User created successfully", success = True)
 
@@ -163,6 +202,16 @@ class UsersApi(remote.Service):
         user = Users.query(Users.email == request.email).fetch(1)
         return UserObject(email = user[0].email, first_name = user[0].first_name, 
                           last_name = user[0].last_name)
+
+    @endpoints.method(UserObject, Response,
+                        name = 'check_if_exists',
+                        path = 'check_if_exists',
+                        http_method = 'GET')
+    def check_if_exists(self, request):
+        user = Users.query(Users.email == request.email.lower())
+        if user.count() > 0:
+            return Response(message = "That email is already in use.", success = False)
+        return Response(message = "That email is not in use.", success = True)
 
 
 @endpoints.api(name = 'projects', version = 'v1',

@@ -4,53 +4,58 @@
 <div class="main-content">
   <div class="main-content-container">
     <div class="register-form-container">
-    <div id="checkmark" style="display: none; margin-left: auto; margin-right: auto; margin-top 100px;"><img src="/assets/checkmark.png"></div>
-      <form role="form" id="register-form">
+      <form role="form" id="register-form" method="POST">
         <div class="form-group">
           <label for="email">Email:          
             <span id="email_valid" style="display: none;"><i class="fa fa-check"></i></span>
             <span id="email_error" style="display: none;"><i class="fa fa-times"> Invalid email address.</i></span>
           </label>
-          <input type="email" class="form-control" id="email" placeholder="Enter email">
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
         </div>
         <div class="form-group">
           <label for="pwd">Password:
             <span id="password_valid" style="display: none;"><i class="fa fa-check"></i></span>
             <span id="password_error" style="display: none;"><i class="fa fa-times"> Your password is too short (6 or more characters).</i></span>
           </label>
-          <input type="password" class="form-control" id="password" placeholder="Enter password">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
         </div>
         <div class="form-group">
           <label for="pwd">Retype Password:
             <span id="retype_password_valid" style="display: none;"><i class="fa fa-check"></i></span>
             <span id="retype_password_error" style="display: none;"><i class="fa fa-times"> Your passwords do not match.</i></span>
           </label>
-          <input type="password" class="form-control" id="retype_password" placeholder="Retype password">
+          <input type="password" class="form-control" id="retype_password" name="retype_password" placeholder="Retype password">
         </div>
         <div class="form-group">
           <label for="pwd">First Name:
             <span id="first_name_valid" style="display: none;"><i class="fa fa-check"></i></span>
             <span id="first_name_error" style="display: none;"><i class="fa fa-times"> You need to enter a first name..</i></span>
           </label>
-          <input type="text" class="form-control" id="first_name" placeholder="First Name">
+          <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
         </div>
         <div class="form-group">
           <label for="pwd">Last Name:
             <span id="last_name_valid" style="display: none;"><i class="fa fa-check"></i></span>
             <span id="last_name_error" style="display: none;"><i class="fa fa-times"> You need to enter a last name.</i></span>
           </label>
-          <input type="text" class="form-control" id="last_name" placeholder="Last Name">
+          <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
         </div>
         <div class="form-group">
           <label for="pwd">Your skillset:</label>
-            <select class="form-control" id="talent">
-                <option value="">Artist</option>
-                <option value="">Designer</option>
-                <option value="">Marketing Specialist</option>
-                <option value="">Software Engineer</option>
+            <select class="form-control" id="profession" name="profession">
+                {% for profession in professions %}
+                <option value="{{profession.slug}}">{{profession.name}}</option>
+                {% endfor %}
               </select>
         </div>
-        <button type="submit" class="btn btn-default" id="register">Register Me</button>
+        <button type="submit" class="btn btn-default">Register Me</button>
+        <br>
+        <br>
+        <span style="color: red; font-size: 18px;">{{errors.passwords_mismatch}}</span>
+        <br>
+        <span style="color: red; font-size: 18px;">{{errors.missing_fields}}</span>
+        <br>
+        <span style="color: red; font-size: 18px;">{{errors.email_error}}</span>
       </form>
     </div>
   </div><!--main-content-container-->
@@ -168,23 +173,24 @@ function validateEmail(email) {
       email: $("#email").val(),
       password_hash: $("#password").val(),
       first_name: $("#first_name").val(),
-      last_name: $("#last_name").val()
+      last_name: $("#last_name").val(),
+      profession: $("#profession").val()
     }
 
-    $.ajax({
-      type: "POST",
-      url: "http://localhost:26081/_ah/api/users/v1.00/create_user",
-      dataType: "json",
-      data: JSON.stringify(user),
-      contentType: "application/json; charset=utf-8",
-      success: function(data){
-        $("#register-form").hide();
-        $("#checkmark").fadeIn();
-      },
-      failure: function(errMsg) {
-        alert(errMsg);
-      }
-    });
+    // $.ajax({
+    //   type: "POST",
+    //   url: "http://localhost:26081/_ah/api/users/v1.00/create_user",
+    //   dataType: "json",
+    //   data: JSON.stringify(user),
+    //   contentType: "application/json; charset=utf-8",
+    //   success: function(data){
+    //     $("#register-form").hide();
+    //     $("#checkmark").fadeIn();
+    //   },
+    //   failure: function(errMsg) {
+    //     alert(errMsg);
+    //   }
+    // });
 
   });
 });

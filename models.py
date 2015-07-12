@@ -82,33 +82,39 @@ class BaseModel(ndb.Model):
 	updated = ndb.DateTimeProperty(auto_now = True)
 
 class Users(BaseModel):
-	email = ndb.StringProperty()
-	password_hash = ndb.StringProperty()
-	first_name = ndb.StringProperty()
-	last_name = ndb.StringProperty()
+    email = ndb.StringProperty(required = True)
+    password_hash = ndb.StringProperty(required = True)
+    first_name = ndb.StringProperty(required = True)
+    last_name = ndb.StringProperty(required = True)
+    profession = ndb.KeyProperty(kind = 'Professions', required = True)
+    active = ndb.BooleanProperty(default = True)
 
-	@classmethod
-	def by_id(cls, uid):
-		return Users.get_by_id(uid)
-	
-	@classmethod
-	def by_email(cls, email):
-		e = Users.query(Users.email == email).get()
-		return e
+    @classmethod
+    def by_id(cls, uid):
+        return Users.get_by_id(uid)
+    
+    @classmethod
+    def by_email(cls, email):
+        e = Users.query(Users.email == email).get()
+        return e
 
-	@classmethod
-	def register(cls, email, password, first_name, last_name):
-		pw_hash = make_pw_hash(email, password)
-		return cls( email = email,
-					password_hash = pw_hash,
-					first_name = first_name,
-					last_name = last_name)
-	
-	@classmethod
-	def login(cls, email, pw):
-		u = cls.by_email(email)
-		if u and valid_pw(email, pw, u.password_hash):
-			return u
+    @classmethod
+    def register(cls, email, password, first_name, last_name, profession):
+        pw_hash = make_pw_hash(email, password)
+        check = cls.query(cls.email == email)
+        if check.count() > 0:
+            return
+        return cls( email = email.lower(),
+            password_hash = pw_hash,
+            first_name = first_name,
+            last_name = last_name,
+            profession = profession)
+    
+    @classmethod
+    def login(cls, email, pw):
+        u = cls.by_email(email)
+        if u and valid_pw(email, pw, u.password_hash):
+            return u
 
 class Images(BaseModel):
     image = ndb.BlobProperty(required = True)
@@ -132,5 +138,10 @@ class Projects(BaseModel):
     field = ndb.KeyProperty(kind = 'Fields')
     professions = ndb.KeyProperty(kind = 'Professions', repeated = True)
     card = ndb.KeyProperty(kind = 'Images')
+    votes = ndb.IntegerProperty(default = 0)
 
+class Messages(BaseModel):
+    message = ndb.StringProperty(required = True)
+    user = ndb.KeyProperty(kind = 'Users')
+    read = ndb.BooleanProperty(default = False)
 
