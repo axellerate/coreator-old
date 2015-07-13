@@ -209,10 +209,21 @@ footer{
 	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 }
 
+.edit-user-container{	
+	width: 1149px;
+	height: 1200px;
+	padding-top: 100px;
+	background: #efefef;
+	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	z-index: 0;
+}
+
 .profile-cover-image{
 	width: 1149px;
 	height: 300px;
-	background-image: url("http://thewowstyle.com/wp-content/uploads/2015/02/Landscape-Photography-Brisbane.jpg");
+	background-image: url("/assets/default-cover-image.jpg");
 	background-size: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -230,6 +241,27 @@ footer{
 	background-image: url('/assets/default-profile-picture.png');
 	background-repeat: no-repeat;
 	background-position: center;
+	background-size: cover;
+}
+
+.profile-actions{
+	width: 1149px;
+	height: 50px;
+	padding: 10px;
+}
+
+#profile-commend-button{
+	float: right;
+}
+
+#profile-message-button{
+	float: right;
+	margin-right: 5px;
+}
+
+#profile-friend-button{
+	float: right;
+	margin-right: 5px;
 }
 
 .register-form-container{
@@ -244,6 +276,13 @@ footer{
 	width: 400px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#edit-user-form{
+	width: 400px;
+	margin-left: 370px;
+	margin-top: 50px;
+	position: absolute;
 }
 
 #new-project-form{
@@ -300,7 +339,7 @@ footer{
 #side_menu_header{
 	width: 250px;
 	height: 170px;
-	background-image: url("http://thewowstyle.com/wp-content/uploads/2015/02/Landscape-Photography-Brisbane.jpg");
+	background-image: url("/assets/default-cover-image.jpg");
 }
 
 #side_menu_profile_image{
@@ -315,6 +354,7 @@ footer{
 	background-image: url('/assets/default-profile-picture.png');
 	background-repeat: no-repeat;
 	background-position: center;
+	background-size: cover;
 }
 
 #side_menu_user_info{

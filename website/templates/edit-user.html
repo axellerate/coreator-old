@@ -1,0 +1,97 @@
+{% include "header.html" %}
+{% include "top_bar.html" %}
+{% include "side_menu.html" %}
+<link rel="stylesheet" type="text/css" href="bower/bootstrap-fileinput/css/fileinput.min.css">
+<script src="bower/bootstrap-fileinput/js/fileinput.min.js" type="text/javascript"></script>
+
+<div class="main-content">
+  <div class="main-content-container">
+    <div class="edit-user-container">
+      <form role="form" id="edit-user-form" enctype="multipart/form-data" method="POST">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" disabled = "disabled">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Old password:</label>
+          <input type="password" class="form-control" id="password" name="old_password" placeholder="Enter password">
+        </div>
+        <div class="form-group">
+          <label for="pwd">New Password:</label>
+          <input type="password" class="form-control" id="retype_password" name="new_password" placeholder="Retype password">
+        </div>
+        <div class="form-group">
+          <label for="pwd">First Name:</label>
+          <input type="text" class="form-control" id="first_name" name="first_name" value="{{user.first_name}}">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Last Name:</label>
+          <input type="text" class="form-control" id="last_name" name="last_name" value="{{user.last_name}}">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Your skillset:</label>
+            <select class="form-control" id="profession" name="profession">
+                {% for profession in professions %}
+                <option value="{{profession.slug}}" 
+                {% if profession.key == user.profession %}
+                selected
+                {% endif %}
+                >{{profession.name}}</option>
+                {% endfor %}
+              </select>
+        </div>
+        <div class="form-group">
+            <label for="card">Your profile image (150x150 is optimal):</label>
+            <br>
+            <input id="input-id" type="file" class="file" accept="image/*" data-show-upload="false" data-preview-file-type="text" name="profile_image">
+            <script>
+                $("#input-id").fileinput({
+                    overwriteInitial: true,
+                    maxFileSize: 500,
+                    previewFileType: "image",
+                    browseClass: "btn btn-success",
+                    browseLabel: "Pick Image",
+                    browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+                    removeClass: "btn btn-danger",
+                    removeLabel: "Delete",
+                    removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+                    uploadClass: "btn btn-info",
+                    uploadLabel: "Upload",
+                    uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+                });
+        </script>   
+        </div>
+        <div class="form-group">
+            <label for="card">Your cover image (1150 wide by 300 in height is optimal):</label>
+            <br>
+            <input id="input-id2" type="file" class="file" accept="image/*" data-show-upload="false" data-preview-file-type="text" name="profile_cover_image">
+            <script>
+                $("#input-id2").fileinput({
+                    overwriteInitial: true,
+                    maxFileSize: 1000,
+                    previewFileType: "image",
+                    browseClass: "btn btn-success",
+                    browseLabel: "Pick Image",
+                    browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+                    removeClass: "btn btn-danger",
+                    removeLabel: "Delete",
+                    removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+                    uploadClass: "btn btn-info",
+                    uploadLabel: "Upload",
+                    uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+                });
+        </script>   
+        </div>
+        <button type="submit" class="btn btn-warning">Save and Update</button>
+      </form>
+    </div>
+  </div><!--main-content-container-->
+</div><!--End of main-content-->
+
+<script>
+	$('.profile-cover-image').hover(function(){
+		$('#edit_button').toggle();
+	});
+</script>
+
+{% include "footer.html" %}

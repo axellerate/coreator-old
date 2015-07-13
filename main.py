@@ -40,7 +40,7 @@ class Home(MainHandler):
 
 class Register(MainHandler):
     
-    professions = Professions.query()
+    professions = Professions.query().order(Professions.name)
     errors = {}
 
     def get(self):
@@ -83,12 +83,74 @@ class Logout(MainHandler):
 
 class Profile(MainHandler):
     def get(self):
+        user1 = Users.get_by_id(5865619656278016)
+        # FriendsPending.send_request(user1, self.user)
+        # Friends.remove_friend(user1, self.user)
+        FriendsPending.accept_request(user1, self.user)
+
         profile_id = int(self.request.get('id'))
         profile_user = Users.get_by_id(profile_id)
+        profile_profession = Professions.query(Professions.key == profile_user.profession).get()
         if self.user:
-            return self.render('profile.html', user = self.user, profile_user = profile_user)
+            return self.render('profile.html', profession = profile_profession, user = self.user, profile_user = profile_user)
         else:
-            return self.render('profile.html', profile_user = profile_user)
+            return self.render('profile.html', profession = profile_profession, profile_user = profile_user)
+
+class EditUser(MainHandler):
+
+    professions = Professions.query()
+
+    def get(self):
+        user = self.user
+        if user:
+            self.render('edit-user.html', user = user, professions = self.professions)
+        else:
+            self.redirect('/register')
+
+    def post(self):
+        user = self.user
+        old_password = self.request.get('old_password')
+        new_password = self.request.get('new_password')
+        first_name = self.request.get('first_name')
+        last_name = self.request.get('last_name')
+        profession = self.request.get('profession')
+        profession = Professions.query(Professions.slug == profession).get()
+        profile_image = self.request.get('profile_image')
+        profile_cover_image = self.request.get('profile_cover_image')
+
+        if old_password != "" and new_password > 6:
+            if valid_pw(user.email, old_password, user.password_hash):
+                pw_hash = make_pw_hash(user.email, new_password)
+                user.password_hash = pw_hash
+                user.put()
+            else:
+                return self.redirect('/edit-user')
+        if first_name != user.first_name:
+            user.first_name = first_name
+            user.put()
+        if last_name != user.last_name:
+            user.last_name = last_name
+            user.put()
+        if profession.key != user.profession:
+            user.profession = profession.key
+            user.put()
+        if profile_image:
+            if user.profile_image:
+                img = Images.query(Images.key == user.profile_image).get()
+                img.key.delete()
+            profile_image = Images(image = profile_image)
+            profile_image.put()
+            user.profile_image = profile_image.key
+            user.put()
+        if profile_cover_image:
+            if user.profile_cover_image:
+                img = Images.query(Images.key == user.profile_cover_image).get()
+                img.key.delete()
+            profile_cover_image = Images(image = profile_cover_image)
+            profile_cover_image.put()
+            user.profile_cover_image = profile_cover_image.key
+            user.put()
+        return self.redirect('/profile?id=%s' %user.key.id())
 
 class ProjectsPage(MainHandler):
     def get(self):
@@ -97,12 +159,36 @@ class ProjectsPage(MainHandler):
         else:
             return self.render('projects.html')
 
+    def post(self):
+        email = self.request.get('email').lower()
+        password = self.request.get('password')
+
+        u = Users.login(email, password)
+        if u:
+            self.login(u)
+            return self.redirect('/')
+        else:
+            msg = 'Invalid username or password.'
+            return self.render('index.html', error = msg)
+
 class People(MainHandler):
     def get(self):
         if self.user:
             return self.render('people.html', user = self.user)
         else:
             return self.render('people.html')
+
+    def post(self):
+        email = self.request.get('email').lower()
+        password = self.request.get('password')
+
+        u = Users.login(email, password)
+        if u:
+            self.login(u)
+            return self.redirect('/')
+        else:
+            msg = 'Invalid username or password.'
+            return self.render('index.html', error = msg)
 
 class UserProjects(MainHandler):
     def get(self):
@@ -117,6 +203,18 @@ class UserProjects(MainHandler):
         else:
             return self.render('user-projects.html', projects_user = projects_user,
                 projects = projects)
+
+    def post(self):
+        email = self.request.get('email').lower()
+        password = self.request.get('password')
+
+        u = Users.login(email, password)
+        if u:
+            self.login(u)
+            return self.redirect('/')
+        else:
+            msg = 'Invalid username or password.'
+            return self.render('index.html', error = msg)
 
 class NewProject(MainHandler):
 
@@ -267,8 +365,8 @@ class ProfessionsApi(remote.Service):
                         path = 'create_profession',
                         http_method = 'POST')
     def create_profession(self, request):
-        f = Fields.query(slug = request.field_slug).get(1)
-        p = Professions(name = request.name, slug = request.slug, field = k.Key())
+        f = Fields.query(Fields.slug == request.field_slug).get()
+        p = Professions(name = request.name, slug = request.slug, field = f.key)
         p.put()
         return Response(message = "Profession created successfully", success = True)
 
@@ -293,6 +391,7 @@ app = webapp2.WSGIApplication([
     ('/projects', ProjectsPage),
     ('/people', People),
     ('/new-project', NewProject),
-    ('/image', DisplayImage)
+    ('/image', DisplayImage),
+    ('/edit-user', EditUser)
 
 ], debug=True)

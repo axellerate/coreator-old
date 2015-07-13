@@ -5,14 +5,42 @@
 <div class="main-content">
   <div class="main-content-container">
     <div class="profile-container">
-
+    	{% if profile_user.profile_cover_image %}
+    	<section class="profile-cover-image" style="background: url('/image?id={{profile_user.profile_cover_image.id()}}'); background-repeat: no-repeat; background-position: center; background-size: cover;">
+    	{% else %}
     	<section class="profile-cover-image">
+    	{% endif %}
+    		{% if user == profile_user %}
+    		<span id="edit_button" style="display: none; color: white; position: absolute; left: 1025px; top: 10px;">
+    			<a href="/edit-user">
+    				<button class="btn btn-warning"><i class="fa fa-pencil-square-o"></i> Edit Profile</button>
+    			</a>
+    		</span>
+    		{% endif %}
+    		{% if profile_user.profile_image %}
+    		<div class="profile-picture-circle" style="background: url('/image?id={{profile_user.profile_image.id()}}'); background-repeat: no-repeat; background-position: center; background-size: cover;"></div>
+    		{% else %}
     		<div class="profile-picture-circle"></div>
+    		{% endif %}
     	</section>
+    	{% if user != profile_user %}
+    	<section class="profile-actions">
+    		<button id="profile-commend-button" class="btn btn-success">Commend {{profile_user.first_name}} <span class="badge">42</span></button>
+    		<button id="profile-message-button" class="btn btn-warning">Message {{profile_user.first_name}}</button>
+    		<button id="profile-friend-button" class="btn btn-info">Send Friend Request</button>
+    	</section>
+    	{% endif %}
 
     {{profile_user.first_name}} {{profile_user.last_name}}
+    {{profile_user.email}} {{profession.name}}
     </div>
   </div><!--main-content-container-->
 </div><!--End of main-content-->
+
+<script>
+	$('.profile-cover-image').hover(function(){
+		$('#edit_button').toggle();
+	});
+</script>
 
 {% include "footer.html" %}

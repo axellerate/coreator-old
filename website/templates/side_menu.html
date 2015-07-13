@@ -2,6 +2,15 @@
 <meta id="user-id" data-user-id="{{user.key.id()}}">
 <meta id="user-first-name" data-first-name="{{user.first_name}}">
 <meta id="user-last-name" data-last-name="{{user.last_name}}">
+
+{% if user.profile_image %}
+<meta id="user-profile-image" data-profile-image="{{user.profile_image.id()}}">
+{% endif %}
+
+{% if user.profile_cover_image %}
+<meta id="user-cover-image" data-cover-image="{{user.profile_cover_image.id()}}">
+{% endif %}
+
 {% endif %}
 <div id="side-menu"></div>
 

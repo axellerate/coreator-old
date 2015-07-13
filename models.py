@@ -88,6 +88,8 @@ class Users(BaseModel):
     last_name = ndb.StringProperty(required = True)
     profession = ndb.KeyProperty(kind = 'Professions', required = True)
     active = ndb.BooleanProperty(default = True)
+    profile_image = ndb.KeyProperty(kind = 'Images')
+    profile_cover_image = ndb.KeyProperty(kind = 'Images')
 
     @classmethod
     def by_id(cls, uid):
@@ -144,4 +146,72 @@ class Messages(BaseModel):
     message = ndb.StringProperty(required = True)
     user = ndb.KeyProperty(kind = 'Users')
     read = ndb.BooleanProperty(default = False)
+
+class UserCommends(BaseModel):
+    message = ndb.StringProperty()
+    user = ndb.KeyProperty(kind = 'Users')
+    commender = ndb.KeyProperty(kind = 'Users')
+
+    @classmethod
+    def commend(cls, user, commender, message):
+        check = cls.query(cls.user == user.key, cls.commender == commender.key)
+        if check.count() > 0:
+            return False
+        cls(message = message, user = user.key, commender = commender.key)
+        cls.put()
+        return True
+
+class Friends(BaseModel):
+    user = ndb.KeyProperty(kind = 'Users')
+    friend = ndb.KeyProperty(kind = 'Users')
+
+    @classmethod
+    def add_friend(cls, requester, reciever):
+        f1 = cls.query(cls.user == requester.key, cls.friend == reciever.key)
+        f2 = cls.query(cls.user == reciever.key, cls.friend == requester.key)
+        print f1.count()
+        print f2.count()
+        if f1.count() > 0 or f2.count() > 0:
+            return False
+        f1 = Friends(user = requester.key, friend = reciever.key)
+        f2 = Friends(user = reciever.key, friend = requester.key)
+        f1.put()
+        f2.put()
+        return True
+
+    @classmethod
+    def remove_friend(cls, user, friend):
+        f1 = cls.query(cls.user == user.key, cls.friend == friend.key)
+        f2 = cls.query(cls.user == friend.key, cls.friend == user.key)
+        if f1 > 0 and f2 > 0:
+            f1.get().key.delete()
+            f2.get().key.delete()
+            return True
+        return False
+
+class FriendsPending(BaseModel):
+    requester = ndb.KeyProperty(kind = 'Users')
+    reciever = ndb.KeyProperty(kind = 'Users')
+
+    @classmethod
+    def send_request(cls, requester, reciever):
+        check = cls.query(cls.requester == requester.key, cls.reciever == reciever.key)
+        if check.count() > 0:
+            return False
+        f = cls(requester = requester.key, reciever = reciever.key)
+        f.put()
+        m = Messages(message = "Friend Request", user = reciever.key)
+        m.put()
+
+    @classmethod
+    def accept_request(cls, requester, reciever):
+        check = cls.query(cls.requester == requester.key, cls.reciever == reciever.key)
+        print check.count()
+        if check.count() > 0:
+            if Friends.add_friend(reciever, requester) == False:
+                return False
+            check.get().key.delete()
+            return True
+        return False
+
 
