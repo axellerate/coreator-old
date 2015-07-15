@@ -144,7 +144,8 @@ class Projects(BaseModel):
 
 class Messages(BaseModel):
     message = ndb.StringProperty(required = True)
-    user = ndb.KeyProperty(kind = 'Users')
+    to_user = ndb.KeyProperty(kind = 'Users')
+    from_user = ndb.KeyProperty(kind = 'Users')
     read = ndb.BooleanProperty(default = False)
 
 class UserCommends(BaseModel):
@@ -200,7 +201,7 @@ class FriendsPending(BaseModel):
             return False
         f = cls(requester = requester.key, reciever = reciever.key)
         f.put()
-        m = Messages(message = "Friend Request", user = reciever.key)
+        m = Messages(message = "Friend Request", to_user = reciever.key, from_user = null)
         m.put()
 
     @classmethod
