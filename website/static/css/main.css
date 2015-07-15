@@ -2,6 +2,7 @@ body{
 	padding:0;
 	margin: 0;
 	background: #858585;
+	background-image:url('/assets/nasty_fabric.png');
 	font-family: 'Open Sans', sans-serif;
 }
 
@@ -44,6 +45,34 @@ footer{
 	font-weight: bold;
 }
 
+#sort-project-select{
+	float: right;
+	width: 250px;
+	margin-bottom: 20px;
+	margin-right: 25px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#sort-project-field-select{
+	float: right;
+	width: 250px;
+	margin-bottom: 20px;
+	margin-right: 25px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#sort-project-profession-select{
+	float: right;
+	width: 250px;
+	margin-bottom: 20px;
+	margin-right: 25px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+
 #main-logo{
 	margin-top: -7px;
 	margin-left: 5px;
@@ -84,7 +113,27 @@ footer{
 .main-content-container{
 	position: relative;
 	width: 1160px;
-	min-height: 600px;
+	min-height: 900px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 0;
+}
+
+.main-content-container-small{
+	position: relative;
+	width: 1160px;
+	min-height: 900px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 0;
+}
+
+.main-content-container-medium{
+	position: relative;
+	width: 1448px;
+	min-height: 900px;
 	height: auto;
 	margin-left: auto;
 	margin-right: auto;
@@ -93,6 +142,7 @@ footer{
 
 .main-content-row{
 	height: 402px;
+	margin-bottom: 3px;
 }
 
 .main-content-card{

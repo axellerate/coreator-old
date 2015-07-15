@@ -3,35 +3,126 @@
 {% include "side_menu.html" %}
 
 <div class="main-content">
-  <div class="main-content-container">
+
+  <div class="main-content-container-small">
+
     <div class="row">
-      <a href="/new-project"><button class="btn btn-default" id="create-project-btn">Start a Project</button></a>
+      <a href="/new-project"><button class="btn btn-success" id="create-project-btn">Start a Project</button></a>
+      <select class="form-control" id="sort-project-select">
+        <option value="">Other Sort Options</option>
+        <option value="">Lowest to Highest Rated</option>
+        <option value="">Highest to Lowest Rated</option>
+        <option value="">Newest to Oldest</option>
+        <option value="">Oldest to Newest</option>
+      </select>
+      <select class="form-control" id="sort-project-field-select">
+        <option value="">Sort by Field</option>
+        <option value="">Art</option>
+        <option value="">Graphic Design</option>
+        <option value="">Hardware</option>
+        <option value="">Science</option>
+        <option value="">Software</option>
+        <option value="">Engineering</option>
+      </select>
+      <select class="form-control" id="sort-project-profession-select">
+        <option value="">Sort by Profession</option>
+        <option value="">3D-Artist</option>
+        <option value="">Graphic Designer</option>
+        <option value="">Mobile Developer</option>
+        <option value="">Software Engineer</option>
+        <option value="">Web/UI Designer</option>
+        <option value="">Web Developer</option>
+      </select>
     </div>
-    <div class="main-content-row">
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-    </div><!--main-content-row-->
-    <div class="main-content-row">
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-    </div><!--main-content-row-->
-    <div class="main-content-row">
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-    </div><!--main-content-row-->
-    <div class="main-content-row">
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-      <a href="#project?id=#"><li class="main-content-card"></li></a>
-    </div><!--main-content-row-->
-  </div><!--main-content-container-->
+
+
+    {% for project in page_of_projects %}
+
+      {% if loop.first %}
+        <div class="main-content-row">
+      {% endif %}
+
+      {% if loop.index is divisibleby(5) %}
+        <div class="main-content-row">
+      {% endif %}
+
+        <a href="#project?id={{project.key.id()}}"><img src="/image?id={{project.card.id()}}"></a>
+
+
+      {% if loop.index is divisibleby(4) %}
+        </div><!--main-content-row-->
+      {% endif %}
+
+      {% if loop.last %}
+        </div><!--main-content-row-->
+      {% endif %}
+
+    {% endfor %}
+
+
+
+  </div><!--main-content-container-small-->
+
+  <div class="main-content-container-medium">
+
+    <div class="row">
+      <a href="/new-project"><button class="btn btn-success" id="create-project-btn">Start a Project</button></a>
+      <select class="form-control" id="sort-project-select">
+        <option value="">Other Sort Options</option>
+        <option value="">Lowest to Highest Rated</option>
+        <option value="">Highest to Lowest Rated</option>
+        <option value="">Newest to Oldest</option>
+        <option value="">Oldest to Newest</option>
+      </select>
+      <select class="form-control" id="sort-project-field-select">
+        <option value="">Sort by Field</option>
+        <option value="">Art</option>
+        <option value="">Graphic Design</option>
+        <option value="">Hardware</option>
+        <option value="">Science</option>
+        <option value="">Software</option>
+        <option value="">Engineering</option>
+      </select>
+      <select class="form-control" id="sort-project-profession-select">
+        <option value="">Sort by Profession</option>
+        <option value="">3D-Artist</option>
+        <option value="">Graphic Designer</option>
+        <option value="">Mobile Developer</option>
+        <option value="">Software Engineer</option>
+        <option value="">Web/UI Designer</option>
+        <option value="">Web Developer</option>
+      </select>
+    </div>
+
+
+
+    {% for project in page_of_projects %}
+
+      {% if loop.first %}
+        <div class="main-content-row">
+      {% endif %}
+
+      {% if loop.index is divisibleby(6) %}
+        <div class="main-content-row">
+      {% endif %}
+
+        <a href="#project?id={{project.key.id()}}"><img src="/image?id={{project.card.id()}}"></a>
+
+
+      {% if loop.index is divisibleby(5) %}
+        </div><!--main-content-row-->
+      {% endif %}
+
+      {% if loop.last %}
+        </div><!--main-content-row-->
+      {% endif %}
+
+    {% endfor %}
+
+
+
+  </div><!--main-content-container-small-->
+
 </div><!--End of main-content-->
 
 {% include "footer.html" %}

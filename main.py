@@ -83,10 +83,10 @@ class Logout(MainHandler):
 
 class Profile(MainHandler):
     def get(self):
-        user1 = Users.get_by_id(5865619656278016)
+        # user1 = Users.get_by_id(5865619656278016)
         # FriendsPending.send_request(user1, self.user)
         # Friends.remove_friend(user1, self.user)
-        FriendsPending.accept_request(user1, self.user)
+        # FriendsPending.accept_request(user1, self.user)
 
         profile_id = int(self.request.get('id'))
         profile_user = Users.get_by_id(profile_id)
@@ -154,10 +154,11 @@ class EditUser(MainHandler):
 
 class ProjectsPage(MainHandler):
     def get(self):
+        page_of_projects = Projects.query().order(Projects.created).fetch(16)
         if self.user:
-            return self.render('projects.html', user = self.user)
+            return self.render('projects.html', user = self.user, page_of_projects = page_of_projects)
         else:
-            return self.render('projects.html')
+            return self.render('projects.html', page_of_projects = page_of_projects)
 
     def post(self):
         email = self.request.get('email').lower()
