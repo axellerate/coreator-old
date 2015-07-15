@@ -42,21 +42,20 @@
         <div class="main-content-row">
       {% endif %}
 
-      {% if loop.index is divisibleby(5) %}
-        <div class="main-content-row">
-      {% endif %}
-
         <a href="#project?id={{project.key.id()}}"><img src="/image?id={{project.card.id()}}"></a>
-
-
-      {% if loop.index is divisibleby(4) %}
-        </div><!--main-content-row-->
-      {% endif %}
 
       {% if loop.last %}
         </div><!--main-content-row-->
-      {% endif %}
 
+      {% else %}
+
+        {% if loop.index is divisibleby(4) %}
+          </div><!--main-content-row-->
+
+          <div class="main-content-row">
+        {% endif %}
+
+      {% endif %}
     {% endfor %}
 
 
@@ -69,10 +68,10 @@
       <a href="/new-project"><button class="btn btn-success" id="create-project-btn">Start a Project</button></a>
       <select class="form-control" id="sort-project-select">
         <option value="">Other Sort Options</option>
-        <option value="">Lowest to Highest Rated</option>
-        <option value="">Highest to Lowest Rated</option>
-        <option value="">Newest to Oldest</option>
-        <option value="">Oldest to Newest</option>
+        <option value="low-to-high">Lowest to Highest Rated</option>
+        <option value="high-to-low">Highest to Lowest Rated</option>
+        <option value="new-to-old">Newest to Oldest</option>
+        <option value="old-to-new">Oldest to Newest</option>
       </select>
       <select class="form-control" id="sort-project-field-select">
         <option value="">Sort by Field</option>
@@ -102,21 +101,20 @@
         <div class="main-content-row">
       {% endif %}
 
-      {% if loop.index is divisibleby(6) %}
-        <div class="main-content-row">
-      {% endif %}
-
         <a href="#project?id={{project.key.id()}}"><img src="/image?id={{project.card.id()}}"></a>
-
-
-      {% if loop.index is divisibleby(5) %}
-        </div><!--main-content-row-->
-      {% endif %}
 
       {% if loop.last %}
         </div><!--main-content-row-->
-      {% endif %}
 
+      {% else %}
+
+        {% if loop.index is divisibleby(5) %}
+          </div><!--main-content-row-->
+
+          <div class="main-content-row">
+        {% endif %}
+
+      {% endif %}
     {% endfor %}
 
 
