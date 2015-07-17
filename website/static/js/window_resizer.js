@@ -3,14 +3,17 @@
     // Optimalisation: Store the references outside the event handler:
     var $window = $(window);
 
+    $('.main-content-container-small').hide();
+    $('.main-content-container-medium').hide();
+
     function checkWidth() {
         var windowsize = $window.width();
-        if (windowsize > 1440) {
+        if (windowsize < 1720) {
           $('.main-content-container-small').show();
           $('.main-content-container-medium').hide();
         }
 
-        if (windowsize > 1720) {
+        if (windowsize >= 1720) {
           $('.main-content-container-small').hide();
           $('.main-content-container-medium').show();
         }
