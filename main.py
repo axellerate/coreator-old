@@ -10,7 +10,6 @@ class DisplayImage(webapp2.RequestHandler):
     def get(self):
         image_id = self.request.get('id')
         image = Images.get_by_id(int(image_id))
-        print image
         if image:
             self.response.headers['Content-Type'] = "image/png"
             return self.response.out.write(image.image)
@@ -221,11 +220,13 @@ class NewProject(MainHandler):
 
     fields = Fields.query().order(Fields.name)
     professions = Professions.query().order(Professions.name)
+    project_types = ProjectTypes.query().order(ProjectTypes.name)
 
     def get(self):
         if self.user:
             return self.render('new-project.html', user = self.user,
-                fields = self.fields, professions = self.professions)
+                fields = self.fields, professions = self.professions,
+                project_types = self.project_types)
         else:
             return self.redirect('/register')
 
@@ -234,8 +235,8 @@ class NewProject(MainHandler):
         description = self.request.get('description')
         field = self.request.get('field')
         professions = self.request.get_all('professions')
-        project_type = self.request.get('type')
         card = self.request.get('card')
+        project_type = self.request.get('type')
 
         if not title or not description or not field or not professions or not project_type or not card:
             return self.render('new-project.html', user = self.user, fields = self.fields, 
@@ -243,18 +244,85 @@ class NewProject(MainHandler):
 
         field = Fields.query(Fields.slug == field).get()
         profession_keys = []
-        print professions
         for p in professions:
-            print p
             profession = Professions.query(Professions.slug == p).get()
             profession_keys.append(profession.key)
+
+        project_type = ProjectTypes.query(ProjectTypes.slug == project_type).get()
+
 
         card = Images(image = card)
         card.put()       
         project = Projects(title = title, description = description, field = field.key,
-            professions = profession_keys, card = card.key, founder = self.user.key)
+            professions = profession_keys, card = card.key, founder = self.user.key,
+            project_type = project_type.key)
         project.put()
         return self.redirect('/')
+
+
+class EditProject(MainHandler):
+
+    fields = Fields.query().order(Fields.name)
+    professions = Professions.query().order(Professions.name)
+    project_types = ProjectTypes.query().order(ProjectTypes.name)
+
+    def get(self):
+
+        project_id = self.request.get('id')
+        project = Projects.get_by_id(int(project_id))
+        print project
+        if project == None:
+            return self.redirect('/')
+
+        self.project = project
+
+        if self.user.key == project.founder:
+            return self.render('edit-project.html', user = self.user, project = project,
+                fields = self.fields, professions = self.professions, 
+                project_types = self.project_types)
+        elif self.user:
+            return self.redirect('/')
+        else:
+            return self.redirect('/register')
+
+
+    def post(self):
+
+        project_id = self.request.get('id')
+        project = Projects.get_by_id(int(project_id))
+
+        title = self.request.get("title")
+        description = self.request.get("description")
+        field = self.request.get("field")
+        project_type = self.request.get("type")
+        professions = self.request.get_all("professions")
+        card_image = self.request.get("card")
+
+        project.title = title
+        project.description = description
+        field = Fields.query(Fields.slug == field).get()
+        project.field = field.key
+
+        project_type = ProjectTypes.query(ProjectTypes.slug == project_type).get()
+
+        project.project_type = project_type.key
+
+        profession_keys = []
+        for p in professions:
+            profession = Professions.query(Professions.slug == p).get()
+            profession_keys.append(profession.key)
+        if card_image != "":
+            card = Images(image = card_image)
+            card.put()
+            project.card = card.key
+
+        project.professions = profession_keys
+        project.put()
+        return self.redirect('/edit-project?id=%s' %str(project.key.id()))
+        
+
+
+
 
 
 
@@ -262,6 +330,8 @@ class NewProject(MainHandler):
     Coreator API
     This will be implemented as needed!
 '''
+
+
 
 
 
@@ -392,6 +462,7 @@ app = webapp2.WSGIApplication([
     ('/projects', ProjectsPage),
     ('/people', People),
     ('/new-project', NewProject),
+    ('/edit-project', EditProject),
     ('/image', DisplayImage),
     ('/edit-user', EditUser)
 

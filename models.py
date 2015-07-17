@@ -141,6 +141,11 @@ class Projects(BaseModel):
     professions = ndb.KeyProperty(kind = 'Professions', repeated = True)
     card = ndb.KeyProperty(kind = 'Images')
     votes = ndb.IntegerProperty(default = 0)
+    project_type = ndb.KeyProperty(kind = "ProjectTypes")
+
+class ProjectTypes(BaseModel):
+    name = ndb.StringProperty(required = True)
+    slug = ndb.StringProperty(required = True)
 
 class Messages(BaseModel):
     message = ndb.StringProperty(required = True)

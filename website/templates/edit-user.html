@@ -7,6 +7,11 @@
 <div class="main-content">
   <div class="main-content-container">
     <div class="edit-user-container">
+    <br><br>
+        <center>
+        Last Updated: {{user.updated.strftime('%Y-%m-%d') }}
+        {{user.updated.strftime("at %I:%M%p") }} 
+        </center>
       <form role="form" id="edit-user-form" enctype="multipart/form-data" method="POST">
         <div class="form-group">
           <label for="email">Email:</label>

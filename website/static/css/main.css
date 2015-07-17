@@ -173,9 +173,14 @@ footer{
 }
 
 .view-project-button{
-	position: absolute;
-	top: 350px;
-	left: 1025px;
+	float: right;
+	margin-top: 260px;
+}
+
+.edit-project-button{
+	float: right;
+	margin-top: 260px;
+	margin-right: 10px;
 }
 
 .messages-box{
@@ -261,14 +266,16 @@ footer{
 
 .edit-user-container{	
 	width: 1149px;
-	height: 1200px;
-	padding-top: 100px;
+	min-height: 800px;
+	height: auto;
 	background: #efefef;
 	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	z-index: 0;
+	padding: 50px;
 }
+
 
 .profile-cover-image{
 	width: 1149px;
@@ -329,10 +336,10 @@ footer{
 }
 
 #edit-user-form{
-	width: 400px;
-	margin-left: 370px;
-	margin-top: 50px;
-	position: absolute;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 0;
 }
 
 #new-project-form{

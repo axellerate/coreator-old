@@ -11,8 +11,13 @@
 	    	<br>
 	    	{{project.description | safe}}
 	    	<br>
-	    	<img src="/image?id={{project.card.id()}}">
-	    	<span class="view-project-button"><button class="btn btn-success">View Project</button></span>
+<!-- 	    	<img src="/image?id={{project.card.id()}}"> -->
+	    	<span class="view-project-button">
+          <button class="btn btn-success">View Project</button>
+        </span>
+        <span class="edit-project-button">
+          <a href="/edit-project?id={{project.key.id()}}"<button class="btn btn-warning">Edit Project</button></a>
+        </span> 
 	    </div>
 	    {% endfor %}
     {% else %}

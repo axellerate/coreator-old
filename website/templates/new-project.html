@@ -33,19 +33,12 @@
 			<label class="checkbox-inline"><input type="checkbox" value="{{profession.slug}}" name="professions">{{profession.name}}</label>
 			{% endfor %}
 		</div>
-		<label for="type">Project Type:</label>
-		<div class="radio">
-		  	<label><input type="radio" name="type" value="open-source">Open Source</label>
-		</div>
-		<div class="radio">
-		  	<label><input type="radio" name="type" value="startup">Startup</label>
-		</div>
-		<div class="radio">
-		  	<label><input type="radio" name="type" value="for-fun">For Fun</label>
-		</div>
-		<div class="radio">
-		  	<label><input type="radio" name="type" value="other">Other</label>
-		</div>
+        <label for="type">Project Type:</label>
+        {% for type in project_types %}
+        <div class="radio">
+            <label><input type="radio" name="type" value="{{type.slug}}">{{type.name}}</label>
+        </div>
+        {% endfor %}
 		<div class="form-group">
 			<label for="card">Your Project Card (500px in height by 285px in width):</label>
 			<br>
