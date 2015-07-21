@@ -134,17 +134,17 @@ class EditUser(MainHandler):
             user.profession = profession.key
             user.put()
         if profile_image:
-            if user.profile_image:
-                img = Images.query(Images.key == user.profile_image).get()
-                img.key.delete()
+            # if user.profile_image:
+            #     img = Images.query(Images.key == user.profile_image).get()
+            #     img.key.delete()
             profile_image = Images(image = profile_image)
             profile_image.put()
             user.profile_image = profile_image.key
             user.put()
         if profile_cover_image:
-            if user.profile_cover_image:
-                img = Images.query(Images.key == user.profile_cover_image).get()
-                img.key.delete()
+            # if user.profile_cover_image:
+            #     img = Images.query(Images.key == user.profile_cover_image).get()
+            #     img.key.delete()
             profile_cover_image = Images(image = profile_cover_image)
             profile_cover_image.put()
             user.profile_cover_image = profile_cover_image.key
@@ -170,6 +170,19 @@ class ProjectsPage(MainHandler):
         else:
             msg = 'Invalid username or password.'
             return self.render('index.html', error = msg)
+
+class ProjectPage(MainHandler):
+
+    def get(self):
+        project_id = self.request.get('id')
+        project = Projects.get_by_id(int(project_id))
+        field = Fields.query(Fields.key == project.field).get()
+        if project == None:
+            return self.redirect('/')
+        if self.user:
+            return self.render('project.html', user = self.user, project = project, field = field)
+        else:
+            return self.render('project.html', project = project, field = field)
 
 class People(MainHandler):
     def get(self):
@@ -270,11 +283,8 @@ class EditProject(MainHandler):
 
         project_id = self.request.get('id')
         project = Projects.get_by_id(int(project_id))
-        print project
         if project == None:
             return self.redirect('/')
-
-        self.project = project
 
         if self.user.key == project.founder:
             return self.render('edit-project.html', user = self.user, project = project,
@@ -460,6 +470,7 @@ app = webapp2.WSGIApplication([
     ('/profile', Profile),
     ('/user-projects', UserProjects),
     ('/projects', ProjectsPage),
+    ('/project', ProjectPage),
     ('/people', People),
     ('/new-project', NewProject),
     ('/edit-project', EditProject),

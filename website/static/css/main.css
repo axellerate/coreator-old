@@ -2,7 +2,7 @@ body{
 	padding:0;
 	margin: 0;
 	background: #858585;
-	background-image:url('/assets/nasty_fabric.png');
+	background-image:url('/assets/white_carbonfiber.png');
 	font-family: 'Open Sans', sans-serif;
 }
 
@@ -112,7 +112,7 @@ footer{
 
 .main-content-container{
 	position: relative;
-	width: 1160px;
+	width: 1149px;
 	min-height: 900px;
 	height: auto;
 	margin-left: auto;
@@ -150,14 +150,14 @@ footer{
 	width: 285px;
 	height: 400px;
 	background: #efefef;
-	margin-right: 3px;
-	margin-bottom: 3px;
+	margin-right: 2px;
+	margin-bottom: 2px;
 	float: left;
 	display: block;
 }
 
 .main-content-news{
-	width: 1149px;
+	width: 1147px;
 	height: 400px;
 	margin-bottom: 10px;
 	background: #efefef;
@@ -184,9 +184,10 @@ footer{
 }
 
 .messages-box{
-	float: right;
-	position: relative;
-	margin-right: 130px;
+	color: #000;
+	position: absolute;
+	margin-left: -150px;
+	margin-top: 10px;
 	width: 250px;
 	height: 320px;
 	background: #fff;
@@ -195,6 +196,9 @@ footer{
 	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	border-left: 2px solid gray;
+	border-right: 2px solid gray;
+	border-bottom: 2px solid gray;
 	display: none;
 	overflow: scroll;
 }
@@ -211,12 +215,32 @@ footer{
 	height: auto;
 	background: #efefef;
 	padding: 50px;
+	z-index: -1;
+}
+
+#edit-project-container{
+	width: 1149px;
+	min-height: 800px;
+	height: auto;
+	background: #efefef;
+	padding: 50px;
+	z-index: -1;
+}
+
+.project-container{
+	width: 1149px;
+	min-height: 800px;
+	height: auto;
+	background: #efefef;
+	padding: 50px;
+	z-index: -1;
 }
 
 .friends-box{
-	float: right;
-	position: relative;
-	margin-right: 90px;
+	color: #000;
+	position: absolute;
+	margin-left: -100px;
+	margin-top: 10px;
 	width: 250px;
 	height: 320px;
 	background: #fff;
@@ -225,6 +249,9 @@ footer{
 	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	border-left: 2px solid gray;
+	border-right: 2px solid gray;
+	border-bottom: 2px solid gray;
 	display: none;
 	overflow: scroll;
 }
@@ -235,9 +262,10 @@ footer{
 }
 
 .tasks-box{
-	float: right;
-	position: relative;
-	margin-right: 170px;
+	color: #000;
+	position: absolute;
+	margin-left: -200px;
+	margin-top: 10px;
 	width: 250px;
 	height: 320px;
 	background: #fff;
@@ -246,6 +274,9 @@ footer{
 	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
+	border-left: 2px solid gray;
+	border-right: 2px solid gray;
+	border-bottom: 2px solid gray;
 	display: none;
 	overflow: scroll;
 }
@@ -272,7 +303,7 @@ footer{
 	-webkit-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	-moz-box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
 	box-shadow: 7px 7px 16px -6px rgba(0,0,0,0.27);
-	z-index: 0;
+	z-index: -1;
 	padding: 50px;
 }
 
@@ -347,6 +378,14 @@ footer{
 	margin-left: auto;
 	margin-right: auto;
 }
+
+#edit-project-form{
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: -1;
+}
+
 
 .project-summary-container .summary{
 	height: 135px;
