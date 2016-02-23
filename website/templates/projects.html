@@ -2,6 +2,25 @@
 {% include "top_bar.html" %}
 {% include "side_menu.html" %}
 
+<script>
+
+  function upvote(project_id){
+
+    var $data = { "project_id": String(project_id) };
+
+    $.ajax({
+      type: "POST",
+      url: 'http://localhost:8080/_ah/api/projects/v1/upvote',
+      data: JSON.stringify($data)
+      }).done(function() {
+        var $u = parseInt($("#upvotes" + $data.project_id).html());
+        $("#upvotes" + $data.project_id).html($u + 1);
+
+      });
+  }
+
+</script>
+
 <div class="main-content">
 
   <div class="main-content-container-small">
@@ -42,14 +61,15 @@
         <div class="main-content-row">
       {% endif %}
 
-        <a href="/project?id={{project.key.id()}}" style="display: inline-block;">
-          <div class="project_card">
+          <div class="project_card" style="display: inline-block;">
             <div class="project_card_top" style="background-image: url('/image?id={{project.card.id()}}')"></div>
             <div class="project_card_bottom">
-              <h3>{{project.title}}</h3>
+              <h4>{{project.title}}</h4>
+              <h5>{{project.field.get().name}}</h5>
+              <a href="/project?id={{project.key.id()}}" style="display: inline-block;"><button class="btn btn-warning">View</button></a>
+              <button id="upvote" onclick="upvote({{project.key.id()}})" class="btn btn-success">Upvote <i class="fa fa-thumbs-up"></i> <span style="margin-left: 5px;" id="upvotes{{project.key.id()}}">{{project.votes}}</span></button>
             </div>
           </div>
-        </a>
 
       {% if loop.last %}
         </div><!--main-content-row-->

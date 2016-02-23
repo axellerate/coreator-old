@@ -143,6 +143,11 @@ class Projects(BaseModel):
     votes = ndb.IntegerProperty(default = 0)
     project_type = ndb.KeyProperty(kind = "ProjectTypes")
 
+
+    def upvote(self):
+        self.votes = self.votes + 1
+        self.put()
+
 class ProjectTypes(BaseModel):
     name = ndb.StringProperty(required = True)
     slug = ndb.StringProperty(required = True)

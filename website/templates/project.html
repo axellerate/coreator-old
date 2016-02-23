@@ -4,11 +4,14 @@
 <div class="main-content">
   <div class="main-content-container">
     <div class="project-container">
-      {{project.title}}<br>
+    <img src="/image?id={{project.card.id()}}" height="80px" style="float: right;"/>
+    <span style="color: green; float: right; margin-top: -55px; margin-right: -90px;"><h3>(<i class="fa fa-thumbs-up"></i> {{project.votes}}) </h3></span>
+      	<center><u><h2>{{project.title}}</h2></u></center>
+      	<center><u><h3>{{field.name}}</h3></u></center>
 
-      {{project.description | safe}}<br>
+      	<br><br><br><br>
+      	{{project.description | safe}}<br>
 
-      {{field.name}}
     </div>
   </div><!--main-content-container-->
 </div><!--End of main-content-->

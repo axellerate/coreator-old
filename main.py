@@ -151,7 +151,7 @@ class EditUser(MainHandler):
             profile_cover_image.put()
             user.profile_cover_image = profile_cover_image.key
             user.put()
-        return self.redirect('/profile?id=%s' %user.key.id())
+        return self.redirect('/edit-user')
 
 class ProjectsPage(MainHandler):
     def get(self):
@@ -395,12 +395,23 @@ class UsersApi(remote.Service):
             return Response(message = "That email is already in use.", success = False)
         return Response(message = "That email is not in use.", success = True)
 
+class ProjectUpvote(messages.Message):
+    project_id = messages.StringField(1)
+
 
 @endpoints.api(name = 'projects', version = 'v1',
                description = 'Project Management Resources')
 class ProjectsApi(remote.Service):
-    pass
 
+    @endpoints.method(ProjectUpvote, ProjectUpvote,
+                        name = 'upvote',
+                        path = 'upvote',
+                        http_method = 'POST')
+    def upvote(self, request):
+        print "here"
+        p = Projects.get_by_id(long(request.project_id))
+        p.upvote()
+        return ProjectUpvote(project_id = "yay")
 
 class FieldObject(messages.Message):
     name = messages.StringField(1)

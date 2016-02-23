@@ -166,7 +166,7 @@ footer{
 .main-content-user-projects{
 	padding: 20px;
 	width: 1149px;
-	height: 400px;
+	height: 100px;
 	margin-bottom: 10px;
 	background: #efefef;
 	overflow: hidden;
@@ -174,13 +174,13 @@ footer{
 
 .view-project-button{
 	float: right;
-	margin-top: 260px;
+	margin-top: -30px;
 }
 
 .edit-project-button{
 	float: right;
-	margin-top: 260px;
 	margin-right: 10px;
+	margin-top: -30px;
 }
 
 .messages-box{
@@ -602,6 +602,7 @@ fieldset[disabled] .btn-login-register.active {
 	height: 300px;
 	width: 280px;
 	border-radius: 10px;
+	margin-right: 20px;
 }
 
 .project_card_top{
