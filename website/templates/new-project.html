@@ -21,24 +21,28 @@
 		  	<script>CKEDITOR.replace( 'description' );</script>
 		</div>
 		<label for="field">Project Field:</label>
+		<br>
+		<select class="form-control" name="field">
 		{% for field in fields %}
-		<div class="radio">
-		  	<label><input type="radio" name="field" value="{{field.slug}}">{{field.name}}</label>
-		</div>
+		<option value="{{field.slug}}" name="professions">{{field.name}}</option>
 		{% endfor %}
+		</select>
         <div class="form-group">
 		  	<label for="profession">What sort of talent will you need?</label>
 		  	<br>
+		  	<select class="form-control" name="professions">
 		  	{% for profession in professions %}
-			<label class="checkbox-inline"><input type="checkbox" value="{{profession.slug}}" name="professions">{{profession.name}}</label>
+				<option value="{{profession.slug}}" name="professions">{{profession.name}}</option>
 			{% endfor %}
+			</select>
 		</div>
         <label for="type">Project Type:</label>
+        <br>
+       	<select class="form-control" name="type">
         {% for type in project_types %}
-        <div class="radio">
-            <label><input type="radio" name="type" value="{{type.slug}}">{{type.name}}</label>
-        </div>
+        	<option value="{{type.slug}}" name="professions">{{type.name}}</option>
         {% endfor %}
+        </select>
 		<div class="form-group">
 			<label for="card">Your Project Card (500px in height by 285px in width):</label>
 			<br>

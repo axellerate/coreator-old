@@ -255,7 +255,8 @@ class NewProject(MainHandler):
 
         if not title or not description or not field or not professions or not project_type or not card:
             return self.render('new-project.html', user = self.user, fields = self.fields, 
-                professions = self.professions, title = title, description = description)
+                professions = self.professions, title = title, description = description,
+                project_types = self.project_types)
 
         field = Fields.query(Fields.slug == field).get()
         profession_keys = []
@@ -463,6 +464,20 @@ class ProfessionsApi(remote.Service):
         return ProfessionObjects(professions = all_professions)
 
 
+class InitializeDatabase(MainHandler):
+    
+    def get(self):
+        f = Fields(name="Software", slug="software")
+        f.put()
+        Professions(name = "Web Developer", slug="web-developer").put()
+        Professions(name = "Operations Engineer", slug="operations-engineer").put()
+        Professions(name = "Software Engineer", slug="software-engineer").put()
+        Professions(name = "UI Developer", slug="ui-developer").put()
+        Professions(name = "Frontend Developer", slug="frontend-developer").put()
+        Professions(name = "Backend Developer", slug="backend-developer").put()
+        ProjectTypes(name = "Open Source", slug="open-source").put()
+
+
 application = endpoints.api_server([UsersApi, ProjectsApi, ProfessionsApi, FieldsApi])
 
 app = webapp2.WSGIApplication([
@@ -477,6 +492,7 @@ app = webapp2.WSGIApplication([
     ('/new-project', NewProject),
     ('/edit-project', EditProject),
     ('/image', DisplayImage),
-    ('/edit-user', EditUser)
+    ('/edit-user', EditUser),
+    ('/init', InitializeDatabase)
 
 ], debug=True)

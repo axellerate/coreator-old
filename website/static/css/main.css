@@ -596,3 +596,22 @@ fieldset[disabled] .btn-login-register.active {
 .carousel-control.left, .carousel-control.right {
     background-image: none
 }
+
+.project_card{
+	background-color: #fff;
+	height: 300px;
+	width: 280px;
+	border-radius: 10px;
+}
+
+.project_card_top{
+	border-radius: 10px 10px 0px 0px;
+	height: 180px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.project_card_bottom{
+	text-align: center;
+}

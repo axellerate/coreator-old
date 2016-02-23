@@ -124,7 +124,7 @@ class Images(BaseModel):
 class Fields(BaseModel):
     name = ndb.StringProperty(required = True)
     slug = ndb.StringProperty(required = True)
-    icon = ndb.StringProperty(required = True)  
+    icon = ndb.StringProperty(required = False)  
 
 class Professions(BaseModel):
     name = ndb.StringProperty(required = True)

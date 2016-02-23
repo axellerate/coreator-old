@@ -21,37 +21,45 @@
             <textarea class="form-control" rows="5" id="description" name="description">{{project.description}}</textarea>
             <script>CKEDITOR.replace( 'description' );</script>
         </div>
+
+
         <label for="field">Project Field:</label>
+        <br>
+        <select class="form-control" name="field">
         {% for field in fields %}
-        <div class="radio">
             {% if field.key == project.field %}
-            <label><input type="radio" name="field" value="{{field.slug}}" checked>{{field.name}}</label>
+                <option value="{{field.slug}}" name="professions" selected>{{field.name}}</option>
             {% else %}
-            <label><input type="radio" name="field" value="{{field.slug}}">{{field.name}}</label>
+                <option value="{{field.slug}}" name="professions">{{field.name}}</option>
             {% endif %}
-        </div>
         {% endfor %}
+        </select>
         <div class="form-group">
             <label for="profession">What sort of talent will you need?</label>
             <br>
+            <select class="form-control" name="professions">
             {% for profession in professions %}
-                    {% if profession.key in project.professions %}
-                        <label class="checkbox-inline"><input type="checkbox" value="{{profession.slug}}" name="professions" checked>{{profession.name}}</label>
-                    {% else %}
-                        <label class="checkbox-inline"><input type="checkbox" value="{{profession.slug}}" name="professions">{{profession.name}}</label>
-                    {% endif %}
+                {% if profession.key in project.professions %}
+                <option value="{{profession.slug}}" name="professions" selected>{{profession.name}}</option>
+                {% else %}
+                <option value="{{profession.slug}}" name="professions">{{profession.name}}</option>
+                {% endif %}
             {% endfor %}
+            </select>
         </div>
         <label for="type">Project Type:</label>
+        <br>
+        <select class="form-control" name="type">
         {% for type in project_types %}
-        <div class="radio">
-            {% if type.key == project.project_type %}
-            <label><input type="radio" name="type" value="{{type.slug}}">{{type.name}}</label>
-            {% else %}
-            <label><input type="radio" name="type" value="{{type.slug}}" checked>{{type.name}}</label>
-            {% endif %}
-        </div>
+        {% if type.key == project.project_type %}
+            <option value="{{type.slug}}" name="professions" selected>{{type.name}}</option>
+        {% else %}
+            <option value="{{type.slug}}" name="professions">{{type.name}}</option>
+        {% endif %}
+
         {% endfor %}
+        </select>
+
         <div class="form-group">
             <label for="card">Your Project Card (500px in height by 285px in width):</label>
             <br>
