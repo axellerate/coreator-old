@@ -115,6 +115,8 @@ class EditUser(MainHandler):
         profession = self.request.get('profession')
         profession = Professions.query(Professions.slug == profession).get()
         profile_image = self.request.get('profile_image')
+        print "profile image"
+        print profile_image
         profile_cover_image = self.request.get('profile_cover_image')
 
         if old_password != "" and new_password > 6:
