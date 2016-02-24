@@ -64,6 +64,7 @@ var SideMenuUserOptions = React.createClass({
 			<ul className="nav nav-pills nav-stacked user-options">
 			  <li><a href={"/profile?id=" + user_id}><i className="fa fa-user"></i> My Profile</a></li>
 			  <li><a href={"/user-projects?id=" + user_id}><i className="fa fa-th"></i> My Projects</a></li>
+			  <li><a href="/new-project"><i className="fa fa-chevron-circle-right"></i> New Project</a></li>
 			  <li><a href="/edit-user"><i className="fa fa-cog"></i> My Settings</a></li>
 			  <li><a href="/logout"><i className="fa fa-power-off"></i> Sign Off</a></li>
 			</ul>
