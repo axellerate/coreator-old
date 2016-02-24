@@ -3,25 +3,47 @@
 {% include "side_menu.html" %}
 <div class="main-content">
   <div class="main-content-container">
-    <div class="main-content-news"></div>
-    <div class="main-content-row">
-        <a href="#project/?id=#"><li class="main-content-card"></li></a>
-        <a href="#project/?id=#"><li class="main-content-card"></li></a>
-        <a href="#project/?id=#"><li class="main-content-card"></li></a>
-        <a href="#project/?id=#"><li class="main-content-card"></li></a>
-    </div><!--main-content-row-->
-    <div class="main-content-row">
-      <a href="#project/?id=#"><li class="main-content-card"></li></a>
-      <a href="#project/?id=#"><li class="main-content-card"></li></a>
-      <a href="#project/?id=#"><li class="main-content-card"></li></a>
-      <a href="#project/?id=#"><li class="main-content-card"></li></a>
-    </div><!--main-content-row-->
-    <div class="main-content-row">
-      <a href="#project/?id=#"><li class="main-content-card"></li></a>
-      <a href="#project/?id=#"><li class="main-content-card"></li></a>
-      <a href="#project/?id=#"><li class="main-content-card"></li></a>
-      <a href="#project/?id=#"><li class="main-content-card"></li></a>
-    </div><!--main-content-row-->
+    <div class="main-content-news" style="margin-top: -20px;">
+    <br>
+      <center><h2>What are you interested in?</h2></center>
+      <br>
+      <a href="#"><img style="display: inline-block; width: 250px; margin-left: 27px; border-radius: 10px;" src="/assets/science-icon.png"/></a>
+      <a href="#"><img style="display: inline-block; width: 250px; margin-left: 27px; border-radius: 10px;" src="/assets/earth-icon.png"/></a>
+      <a href="#"><img style="display: inline-block; width: 250px; margin-left: 27px; border-radius: 10px;" src="/assets/software-icon.png"/></a>
+      <a href="#"><img style="display: inline-block; width: 250px; margin-left: 27px; border-radius: 10px;" src="/assets/society-icon.png"/></a>
+    </div>
+    <br>
+
+    {% for project in page_of_projects %}
+
+      {% if loop.first %}
+        <div class="main-content-row">
+      {% endif %}
+
+          <div class="project_card" style="display: inline-block;">
+            <div class="project_card_top" style="background-image: url('/image?id={{project.card.id()}}')"></div>
+            <div class="project_card_bottom">
+              <h4>{{project.title}}</h4>
+              <h5>{{project.field.get().name}}</h5>
+              <a href="/project?id={{project.key.id()}}" style="display: inline-block;"><button class="btn btn-warning">View</button></a>
+              <button id="upvote" onclick="upvote({{project.key.id()}})" class="btn btn-success">Upvote <i class="fa fa-thumbs-up"></i> <span style="margin-left: 5px;" id="upvotes{{project.key.id()}}">{{project.votes}}</span></button>
+            </div>
+          </div>
+
+      {% if loop.last %}
+        </div><!--main-content-row-->
+
+      {% else %}
+
+        {% if loop.index is divisibleby(5) %}
+          </div><!--main-content-row-->
+
+          <div class="main-content-row">
+        {% endif %}
+
+      {% endif %}
+      {% endfor %}
+
   </div><!--main-content-container-->
 </div><!--End of main-content-->
 {% include "footer.html" %}

@@ -20,8 +20,9 @@ class DisplayImage(webapp2.RequestHandler):
 
 class Home(MainHandler):
     def get(self):
+        page_of_projects = Projects.query().order(Projects.created).fetch(16)
         if self.user:
-            return self.render('index.html', user = self.user)
+            return self.render('index.html', user = self.user, page_of_projects = page_of_projects)
         else:
             return self.render('index.html')
 
