@@ -232,7 +232,6 @@ footer{
 	min-height: 800px;
 	height: auto;
 	background: #efefef;
-	padding: 50px;
 	z-index: -1;
 }
 
@@ -615,4 +614,13 @@ fieldset[disabled] .btn-login-register.active {
 
 .project_card_bottom{
 	text-align: center;
+}
+
+.project-cover{
+	width: 1149px;
+	height: 200px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url("/assets/default-cover-image.jpg");
 }

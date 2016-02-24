@@ -4,6 +4,13 @@
 <div class="main-content">
   <div class="main-content-container">
     <div class="project-container">
+    {% if project.cover.id() %}
+    <div class="project-cover" style="background-image: url('/image?id={{project.cover.id()}}');">
+    {% else %}
+    <div class="project-cover">
+    {% endif %}
+
+    </div>
     <img src="/image?id={{project.card.id()}}" height="80px" style="float: right;"/>
     <span style="color: green; float: right; margin-top: -55px; margin-right: -90px;"><h3>(<i class="fa fa-thumbs-up"></i> {{project.votes}}) </h3></span>
       	<center><u><h2>{{project.title}}</h2></u></center>
