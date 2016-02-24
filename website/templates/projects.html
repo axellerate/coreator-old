@@ -23,71 +23,6 @@
 
 <div class="main-content">
 
-  <div class="main-content-container-small">
-
-    <div class="row">
-      <select class="form-control" id="sort-project-select">
-        <option value="">Other Sort Options</option>
-        <option value="">Lowest to Highest Rated</option>
-        <option value="">Highest to Lowest Rated</option>
-        <option value="">Newest to Oldest</option>
-        <option value="">Oldest to Newest</option>
-      </select>
-      <select class="form-control" id="sort-project-field-select">
-        <option value="">Sort by Field</option>
-        <option value="">Art</option>
-        <option value="">Graphic Design</option>
-        <option value="">Hardware</option>
-        <option value="">Science</option>
-        <option value="">Software</option>
-        <option value="">Engineering</option>
-      </select>
-      <select class="form-control" id="sort-project-profession-select">
-        <option value="">Sort by Profession</option>
-        <option value="">3D-Artist</option>
-        <option value="">Graphic Designer</option>
-        <option value="">Mobile Developer</option>
-        <option value="">Software Engineer</option>
-        <option value="">Web/UI Designer</option>
-        <option value="">Web Developer</option>
-      </select>
-    </div>
-
-
-    {% for project in page_of_projects %}
-
-      {% if loop.first %}
-        <div class="main-content-row">
-      {% endif %}
-
-          <div class="project_card" style="display: inline-block;">
-            <div class="project_card_top" style="background-image: url('/image?id={{project.card.id()}}')"></div>
-            <div class="project_card_bottom">
-              <h4>{{project.title}}</h4>
-              <h5>{{project.field.get().name}}</h5>
-              <a href="/project?id={{project.key.id()}}" style="display: inline-block;"><button class="btn btn-warning">View</button></a>
-              <button id="upvote" onclick="upvote({{project.key.id()}})" class="btn btn-success">Upvote <i class="fa fa-thumbs-up"></i> <span style="margin-left: 5px;" id="upvotes{{project.key.id()}}">{{project.votes}}</span></button>
-            </div>
-          </div>
-
-      {% if loop.last %}
-        </div><!--main-content-row-->
-
-      {% else %}
-
-        {% if loop.index is divisibleby(4) %}
-          </div><!--main-content-row-->
-
-          <div class="main-content-row">
-        {% endif %}
-
-      {% endif %}
-    {% endfor %}
-
-
-
-  </div><!--main-content-container-small-->
-
   <div class="main-content-container-medium">
 
     <div class="row">
@@ -127,14 +62,15 @@
         <div class="main-content-row">
       {% endif %}
 
-        <a href="/project?id={{project.key.id()}}">
-          <div class="project_card">
+          <div class="project_card" style="display: inline-block;">
             <div class="project_card_top" style="background-image: url('/image?id={{project.card.id()}}')"></div>
             <div class="project_card_bottom">
-              <h3>{{project.title}}</h3>
+              <h4>{{project.title}}</h4>
+              <h5>{{project.field.get().name}}</h5>
+              <a href="/project?id={{project.key.id()}}" style="display: inline-block;"><button class="btn btn-warning">View</button></a>
+              <button id="upvote" onclick="upvote({{project.key.id()}})" class="btn btn-success">Upvote <i class="fa fa-thumbs-up"></i> <span style="margin-left: 5px;" id="upvotes{{project.key.id()}}">{{project.votes}}</span></button>
             </div>
           </div>
-        </a>
 
       {% if loop.last %}
         </div><!--main-content-row-->

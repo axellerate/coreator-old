@@ -49,8 +49,12 @@
             <label for="card">Your profile image (150x150 is optimal):</label>
             <br>
             <input id="input-id" type="file" class="file" accept="image/*" data-show-upload="false" data-preview-file-type="text" name="profile_image">
+            {% if user.profile_image %}
             <script>
                 $("#input-id").fileinput({
+                    initialPreview: [
+                        "<img src='/image?id={{user.profile_image.id()}}' class='file-preview-image' alt='Example' title='Example Card'>",
+                    ],
                     overwriteInitial: true,
                     maxFileSize: 500,
                     previewFileType: "image",
@@ -65,13 +69,18 @@
                     uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
                 });
         </script>   
+        {% endif %}
         </div>
         <div class="form-group">
             <label for="card">Your cover image (1150 wide by 300 in height is optimal):</label>
             <br>
             <input id="input-id2" type="file" class="file" accept="image/*" data-show-upload="false" data-preview-file-type="text" name="profile_cover_image">
+            {% if user.profile_cover_image %}
             <script>
                 $("#input-id2").fileinput({
+                    initialPreview: [
+                        "<img src='/image?id={{user.profile_cover_image.id()}}' class='file-preview-image' alt='Example' title='Example Card'>",
+                    ],
                     overwriteInitial: true,
                     maxFileSize: 1000,
                     previewFileType: "image",
@@ -86,6 +95,7 @@
                     uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
                 });
         </script>   
+        {% endif %}
         </div>
         <button type="submit" class="btn btn-warning">Save and Update</button>
       </form>

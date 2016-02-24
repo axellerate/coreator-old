@@ -140,6 +140,7 @@ class Projects(BaseModel):
     field = ndb.KeyProperty(kind = 'Fields')
     professions = ndb.KeyProperty(kind = 'Professions', repeated = True)
     card = ndb.KeyProperty(kind = 'Images')
+    cover = ndb.KeyProperty(kind = 'Images')
     votes = ndb.IntegerProperty(default = 0)
     project_type = ndb.KeyProperty(kind = "ProjectTypes")
 

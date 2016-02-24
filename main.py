@@ -251,9 +251,10 @@ class NewProject(MainHandler):
         field = self.request.get('field')
         professions = self.request.get_all('professions')
         card = self.request.get('card')
+        cover = self.request.get('cover')
         project_type = self.request.get('type')
 
-        if not title or not description or not field or not professions or not project_type or not card:
+        if not title or not description or not field or not professions or not project_type or not card or not cover:
             return self.render('new-project.html', user = self.user, fields = self.fields, 
                 professions = self.professions, title = title, description = description,
                 project_types = self.project_types)
@@ -268,9 +269,11 @@ class NewProject(MainHandler):
 
 
         card = Images(image = card)
-        card.put()       
+        card.put()  
+        cover = Images(image = cover)
+        cover.put()       
         project = Projects(title = title, description = description, field = field.key,
-            professions = profession_keys, card = card.key, founder = self.user.key,
+            professions = profession_keys, card = card.key, cover = cover.key, founder = self.user.key,
             project_type = project_type.key)
         project.put()
         return self.redirect('/')
@@ -310,6 +313,7 @@ class EditProject(MainHandler):
         project_type = self.request.get("type")
         professions = self.request.get_all("professions")
         card_image = self.request.get("card")
+        cover_image = self.request.get("cover")
 
         project.title = title
         project.description = description
@@ -328,6 +332,12 @@ class EditProject(MainHandler):
             card = Images(image = card_image)
             card.put()
             project.card = card.key
+
+        if cover_image != "":
+            cover = Images(image = cover_image)
+            cover.put()
+            project.cover = cover.key
+
 
         project.professions = profession_keys
         project.put()
