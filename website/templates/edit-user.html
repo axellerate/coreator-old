@@ -69,6 +69,26 @@
                     uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
                 });
         </script>   
+        {% else %}
+        <script>
+                $("#input-id2").fileinput({
+                    initialPreview: [
+                        "<img src='/assets/default-profile-picture.png' class='file-preview-image' alt='Example' title='Example Card'>",
+                    ],
+                    overwriteInitial: true,
+                    maxFileSize: 1000,
+                    previewFileType: "image",
+                    browseClass: "btn btn-success",
+                    browseLabel: "Pick Image",
+                    browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+                    removeClass: "btn btn-danger",
+                    removeLabel: "Delete",
+                    removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+                    uploadClass: "btn btn-info",
+                    uploadLabel: "Upload",
+                    uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+                });
+        </script>   
         {% endif %}
         </div>
         <div class="form-group">
@@ -80,6 +100,26 @@
                 $("#input-id2").fileinput({
                     initialPreview: [
                         "<img src='/image?id={{user.profile_cover_image.id()}}' class='file-preview-image' alt='Example' title='Example Card'>",
+                    ],
+                    overwriteInitial: true,
+                    maxFileSize: 1000,
+                    previewFileType: "image",
+                    browseClass: "btn btn-success",
+                    browseLabel: "Pick Image",
+                    browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+                    removeClass: "btn btn-danger",
+                    removeLabel: "Delete",
+                    removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+                    uploadClass: "btn btn-info",
+                    uploadLabel: "Upload",
+                    uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+                });
+        </script>
+        {% else %}
+        <script>
+                $("#input-id2").fileinput({
+                    initialPreview: [
+                        "<img src='/assets/default-cover-image.jpg' class='file-preview-image' alt='Example' title='Example Card'>",
                     ],
                     overwriteInitial: true,
                     maxFileSize: 1000,

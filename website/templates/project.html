@@ -4,19 +4,20 @@
 <div class="main-content">
   <div class="main-content-container">
     <div class="project-container">
-    {% if project.cover.id() %}
+    {% if project.cover %}
     <div class="project-cover" style="background-image: url('/image?id={{project.cover.id()}}');">
     {% else %}
     <div class="project-cover">
     {% endif %}
-
     </div>
-    <img src="/image?id={{project.card.id()}}" height="80px" style="float: right;"/>
-    <span style="color: green; float: right; margin-top: -55px; margin-right: -90px;"><h3>(<i class="fa fa-thumbs-up"></i> {{project.votes}}) </h3></span>
-      	<center><u><h2>{{project.title}}</h2></u></center>
-      	<center><u><h3>{{field.name}}</h3></u></center>
-      	<br><br><br><br>
+    <img style="float: right; border-radius:  50%; width: 80px; height: 80px; background-color: #fff;background-image: url('/image?id={{project.card.id()}}'); background-size: cover; background-position: center; background-repeat: no-repeat; margin-right: 20px; margin-top: -180px; border: 3px solid #eee;"/>
+    <span style="color: green; float: right; margin-top: -55px; margin-right: 20px;"><h3>(<i class="fa fa-thumbs-up"></i> {{project.votes}}) </h3></span>
+    	<div style="margin-top: -200px; color: #000;">
+	    	<span style="margin-left: 20px; position: absolute; color: #000; -webkit-text-stroke: 2px #fff;"><h2 style="font-weight: 800;">{{project.title}}</h2></span>
+      	</div>
+      	<div style="width: 1149px; padding: 50px; margin-top: 200px;">
       	  {{project.description | safe}}
+      	</div>
 
     </div>
   </div><!--main-content-container-->

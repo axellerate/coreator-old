@@ -85,6 +85,52 @@
         </script>   
         </div>
         <div class="form-group">
+            <label for="card">Your cover image (1150 wide by 300 in height is optimal):</label>
+            <br>
+            <input id="input-id2" type="file" class="file" accept="image/*" data-show-upload="false" data-preview-file-type="text" name="profile_cover_image">
+            {% if project.cover %}
+            <script>
+                $("#input-id2").fileinput({
+                    initialPreview: [
+                        "<img src='/image?id={{project.cover.id()}}' class='file-preview-image' alt='Example' title='Example Card'>",
+                    ],
+                    overwriteInitial: true,
+                    maxFileSize: 1000,
+                    previewFileType: "image",
+                    browseClass: "btn btn-success",
+                    browseLabel: "Pick Image",
+                    browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+                    removeClass: "btn btn-danger",
+                    removeLabel: "Delete",
+                    removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+                    uploadClass: "btn btn-info",
+                    uploadLabel: "Upload",
+                    uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+                });
+        </script>
+        {% else %}
+        <script>
+                $("#input-id2").fileinput({
+                    initialPreview: [
+                        "<img src='/assets/default-cover-image.jpg' class='file-preview-image' alt='Example' title='Example Card'>",
+                    ],
+                    overwriteInitial: true,
+                    maxFileSize: 1000,
+                    previewFileType: "image",
+                    browseClass: "btn btn-success",
+                    browseLabel: "Pick Image",
+                    browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+                    removeClass: "btn btn-danger",
+                    removeLabel: "Delete",
+                    removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+                    uploadClass: "btn btn-info",
+                    uploadLabel: "Upload",
+                    uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+                });
+        </script>   
+        {% endif %}
+        </div>
+        <div class="form-group">
             <br>
             <button class="btn btn-warning">Update Project!</button>
         </div>
