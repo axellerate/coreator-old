@@ -9,7 +9,7 @@
   <div class="main-content-container">
   	<section id="new-project-container">
       	<form role="form" id="new-project-form" enctype="multipart/form-data" method="POST">
-      	*Please note: This will be your proposal as well as your projects main information page.*
+      	<center><h3><u>New Project</u></h3></center>
       	<br><br>
         	<div class="form-group">
           		<label for="title">Project Title:</label>
@@ -51,6 +51,30 @@
 				$("#input-id").fileinput({
 				    initialPreview: [
 				        "<img src='assets/example-card.png' class='file-preview-image' alt='Example' title='Example Card'>",
+				    ],
+				    overwriteInitial: true,
+				    maxFileSize: 500,
+					previewFileType: "image",
+					browseClass: "btn btn-success",
+					browseLabel: "Pick Image",
+					browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+					removeClass: "btn btn-danger",
+					removeLabel: "Delete",
+					removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+					uploadClass: "btn btn-info",
+					uploadLabel: "Upload",
+					uploadIcon: '<i class="glyphicon glyphicon-upload"></i>',
+				});
+		</script>	
+		</div>
+			<div class="form-group">
+			<label for="cover">Your Project Card (500px in height by 285px in width):</label>
+			<br>
+			<input id="cover-id" type="file" class="file" accept="image/*" data-show-upload="false" data-preview-file-type="text" name="cover">
+			<script>
+				$("#cover-id").fileinput({
+				    initialPreview: [
+				        "<img src='assets/example-card2.png' class='file-preview-image' alt='Example' title='Example Card'>",
 				    ],
 				    overwriteInitial: true,
 				    maxFileSize: 500,
